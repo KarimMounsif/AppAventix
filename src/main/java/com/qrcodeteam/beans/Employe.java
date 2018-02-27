@@ -8,12 +8,11 @@ public class Employe {
 	private String nomEmploye;
 	private String prenomEmploye;
 	private String civiliteEmploye;
-	private DateTime dateDeNaissanceEmploye;
+	private DateTime ddnEmploye;
 	private int typeEmploye; 
 	private String telEmploye;
 	private String mailEmploye;
 	private  float soldeEmploye;
-	private String loginEmploye;
 	private String mdpEmploye;
 	private int statusCompteEmploye;
 	private DateTime dateCreationCompteEmploye;
@@ -28,7 +27,7 @@ public class Employe {
 	
 	
 	public Employe(String idEmploye, String nomEmploye, String prenomEmploye, String civiliteEmploye,
-			DateTime dateDeNaissanceEmploye, int typeEmploye, String telEmploye, String mailEmploye, float soldeEmploye,
+			DateTime ddnEmploye, int typeEmploye, String telEmploye, String mailEmploye, float soldeEmploye,
 			 String mdpEmploye, int statusCompteEmploye, DateTime dateCreationCompteEmploye,
 			DateTime dateDerniereConnexionEmploye, String idEntreprise) {
 	
@@ -36,12 +35,11 @@ public class Employe {
 		this.nomEmploye = nomEmploye;
 		this.prenomEmploye = prenomEmploye;
 		this.civiliteEmploye = civiliteEmploye;
-		this.dateDeNaissanceEmploye = dateDeNaissanceEmploye;
+		this.ddnEmploye = ddnEmploye;
 		this.typeEmploye = typeEmploye;
 		this.telEmploye = telEmploye;
 		this.mailEmploye = mailEmploye;
 		this.soldeEmploye = soldeEmploye;
-		this.loginEmploye = loginEmploye;
 		this.mdpEmploye = mdpEmploye;
 		this.statusCompteEmploye = statusCompteEmploye;
 		this.dateCreationCompteEmploye = dateCreationCompteEmploye;
@@ -90,12 +88,12 @@ public class Employe {
 		this.civiliteEmploye = civiliteEmploye;
 	}
 
-	public DateTime getDateDeNaissanceEmploye() {
-		return dateDeNaissanceEmploye;
+	public DateTime getDdnEmploye() {
+		return ddnEmploye;
 	}
 
-	public void setDateDeNaissanceEmploye(DateTime dateDeNaissanceEmploye) {
-		this.dateDeNaissanceEmploye = dateDeNaissanceEmploye;
+	public void setDdnEmploye(String ddnEmploye) {
+		this.ddnEmploye = new DateTime(ddnEmploye);
 	}
 
 	public int getTypeEmploye() {
@@ -130,13 +128,6 @@ public class Employe {
 		this.soldeEmploye = soldeEmploye;
 	}
 
-	public String getLoginEmploye() {
-		return loginEmploye;
-	}
-
-	public void setLoginEmploye(String loginEmploye) {
-		this.loginEmploye = loginEmploye;
-	}
 
 	public String getMdpEmploye() {
 		return mdpEmploye;

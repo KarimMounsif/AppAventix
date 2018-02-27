@@ -78,7 +78,7 @@ public class LoginController {
 	 * 
 	 */
 	@RequestMapping(value = "/loginEmployeur", method = RequestMethod.POST)
-	public String processLoginEmployeur(Map<String, Object>  model, @ModelAttribute Login userLogin, BindingResult result, HttpSession session) {
+	public String processLoginEmployeur(Map<String, Object>  model, @ModelAttribute("loginForm") Login userLogin, BindingResult result, HttpSession session) {
 		
 
 		// instanciation d'un validator de formulaire de login	
@@ -106,8 +106,8 @@ public class LoginController {
 			// Authentification KO
 			if(entreprise==null) {
 				// mail ou password ne concorde pas
-				result.rejectValue("login", "errors.required",new Object[] {""},"Mail ou password incorrect"); 
-				return "redirect:/login";
+				result.rejectValue("login", "errors.required",new Object[] {"login"},"Mail ou password incorrect"); 
+				return "login";
 			}
 			// Authentification OK & Teste du Status du Compte 0 :Première connexion !!!!
 			else if(entreprise.getStatusCompteEntreprise()==0) {

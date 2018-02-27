@@ -12,10 +12,12 @@ public class Entreprise {
 	private String adresseEntreprise;
 	private String mailEntreprise;
 	private String telEntreprise;
+	private String ribEntreprise;
 	private String mdpEntreprise;
 	private int statusCompteEntreprise;
 	private DateTime dateCreationCompteEntrprise;
 	private DateTime dateDerniereConnexionEntreprise;
+	
 
 	private String siretEntreprise;
 	private DateTime dateImmatriculationEntreprise;
@@ -33,7 +35,7 @@ public class Entreprise {
 	
 
 	public Entreprise(String idEntreprise, String nomEntreprise, String nomService, String codePostalEntreprise,
-			String villeEntreprise, String adresseEntreprise, String mailEntreprise, String telEntreprise,
+			String villeEntreprise, String adresseEntreprise, String mailEntreprise, String telEntreprise, String ribEntreprise,
 			String mdpEntreprise, int statusCompteEntreprise, DateTime dateCreationCompteEntrprise,
 			DateTime dateDerniereConnexionEntreprise, String idEmploye, String siretEntreprise, DateTime dateImmatriculationEntreprise,int capitalSocialEntreprise, int effectifEntreprise) {
 		super();
@@ -45,6 +47,7 @@ public class Entreprise {
 		this.adresseEntreprise = adresseEntreprise;
 		this.mailEntreprise = mailEntreprise;
 		this.telEntreprise = telEntreprise;
+		this.ribEntreprise=ribEntreprise;
 		this.mdpEntreprise = mdpEntreprise;
 		this.statusCompteEntreprise = statusCompteEntreprise;
 		this.dateCreationCompteEntrprise = dateCreationCompteEntrprise;
@@ -232,8 +235,8 @@ public class Entreprise {
 
 
 
-	public void setDateImmatriculationEntreprise(DateTime dateImmatriculationEntreprise) {
-		this.dateImmatriculationEntreprise = dateImmatriculationEntreprise;
+	public void setDateImmatriculationEntreprise(String dateImmatriculationEntreprise) {
+		this.dateImmatriculationEntreprise = new DateTime(dateImmatriculationEntreprise);
 	}
 
 
@@ -258,6 +261,18 @@ public class Entreprise {
 
 	public void setEffectifEntreprise(int effectifEntreprise) {
 		this.effectifEntreprise = effectifEntreprise;
+	}
+
+
+
+	public String getRibEntreprise() {
+		return ribEntreprise;
+	}
+
+
+
+	public void setRibEntreprise(String ribEntreprise) {
+		this.ribEntreprise = ribEntreprise;
 	}
 	
 	

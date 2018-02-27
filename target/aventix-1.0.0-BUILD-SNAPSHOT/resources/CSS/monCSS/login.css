@@ -1,0 +1,42 @@
+@font-face
+{
+font-family: myFirstFont;
+src: url('GOTHIC.ttf');
+}
+
+#logo {
+	padding-left : 0px;
+	margin : 0 auto;
+}
+
+#loginform {
+	padding-top : 50px;
+	padding-left : 0px;
+	height:630px;
+	width: 1530px;
+	font-size: 16px;
+}
+
+#filler {
+	background-color: #ffffff
+}
+
+#legend {
+	font-weight: bold;
+	//font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-family: myFirstFont;
+}
+
+#formname {
+	background: rgba(216, 217, 236,0.5);
+	height:400px;
+	width : 500px;
+	border-radius: 12px;
+}
+
+#texte_bienvenue {
+	padding-top: 40px;
+	padding-right: 50px;
+	font-weight: bold;
+	font-family: myFirstFont;
+}

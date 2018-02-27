@@ -217,7 +217,7 @@ input.valid, textarea.valid{
         		<div class="row" style="padding-right:20px">
 				            
              <ul class="list-inline pull-right" >
-             <button id="activate:step-2" class="btn btn-primary btn-lg bstp2" >
+             <button id="activate:step-2" class="btn btn-primary btn-lg bstp2" disabled="diasbled">
              Suivant
              </button>
              </ul>
@@ -370,7 +370,7 @@ input.valid, textarea.valid{
         <!-- Button -->
             <ul class="list-inline pull-right">
                 <button id="activate:step-1" class="btn btn-primary btn-lg backbstp1">Précédent</button>
-                <button id="activate:step-3" class="btn btn-primary btn-lg bstp3" >Suivant</button>
+                <button id="activate:step-3" class="btn btn-primary btn-lg bstp3" disabled="disabled">Suivant</button>
             </ul>
         
     </div>
@@ -568,9 +568,9 @@ Sed quis luctus arcu. Curabitur mollis purus quis semper consectetur. Pellentesq
 <script src="resources/JS/monJS/datepicker.js"></script>
 <script src="resources/CSS/bootstrap/js_Old/bootstrap.min.js"></script>
 <script src="resources/JS/monJS/stepForm.js"></script>
-<script src="resources/JS/monJS/stepFormValidator.js"></script>
-<script src="resources/JS/monJS/stepFormValidator2.js"></script>
-<script src="resources/JS/monJS/stepFormValidator3.js"></script>
+<script src="resources/JS/monJS/stepFormValidatorCG.js"></script>
+<script src="resources/JS/monJS/stepFormValidatorCG2.js"></script>
+<script src="resources/JS/monJS/stepFormValidatorCG3.js"></script>
 <script src="resources/CSS/bootstrap/js_Old/bootstrap-datepicker.js"></script>
 
 <script type="text/javascript">

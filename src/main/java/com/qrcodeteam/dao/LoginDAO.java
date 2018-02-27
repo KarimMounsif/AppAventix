@@ -34,8 +34,9 @@ public static Entreprise getLoginEntreprise(Connection con, Login x){
 		if(rs.next()) {
 			// Zone critique 
 			// Constructeur de Entreprise : attention à l'ordre des paramètres.
+			
 			entreprise=new Entreprise(rs.getString("idEntreprise"),rs.getString("nomEntreprise"),rs.getString("nomService"),rs.getString("codePostalEntreprise"),
-					rs.getString("villeEntreprise"), rs.getString("adresseEntreprise"), rs.getString("mailEntreprise"), rs.getString("telEntreprise"), rs.getString("mdpEntreprise"), rs.getInt("statusCompteEntreprise"),
+					rs.getString("villeEntreprise"), rs.getString("adresseEntreprise"), rs.getString("mailEntreprise"), rs.getString("telEntreprise"),rs.getString("ribEntreprise"), rs.getString("mdpEntreprise"), rs.getInt("statusCompteEntreprise"),
 				new DateTime(rs.getString("dateCreationCompteEntreprise")), new DateTime(rs.getString("dateDerniereConnexionEntreprise")),rs.getString("idEmploye"),rs.getString("siretEntreprise"),new DateTime(rs.getString("dateImmatriculationEntreprise")),rs.getInt("capitalSocialEntreprise"),rs.getInt("effectifEntreprise"));
 		
 			System.out.println("User trouve");

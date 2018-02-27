@@ -27,6 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.qrcodeteam.beans.Commerce;
 import com.qrcodeteam.beans.CommerceGerant;
+import com.qrcodeteam.beans.Employe;
+import com.qrcodeteam.beans.Entreprise;
+import com.qrcodeteam.beans.EntrepriseEmploye;
 import com.qrcodeteam.beans.Gerant;
 import com.qrcodeteam.beans.Login;
 import com.qrcodeteam.dao.CreationCompteDAO;
@@ -154,6 +157,19 @@ public class CreationCompteController {
 				return "errorlogin";
 			
 					
+	}
+	
+	
+	
+	@RequestMapping(value = "/creationCompteEmployeur", method = RequestMethod.GET)
+	public String viewCreerCompteEmployeur(Map<String, Object> model,HttpSession session) {
+		logger.info("Création de Compte Entreprise/employeur view");
+
+		EntrepriseEmploye entrepriseEmployeForm=new EntrepriseEmploye(new Entreprise(),new Employe());	
+		model.put("entrepriseEmployeForm",entrepriseEmployeForm);
+		
+		return "creationCompteEmployeur";
+	
 	}
 	
 	
