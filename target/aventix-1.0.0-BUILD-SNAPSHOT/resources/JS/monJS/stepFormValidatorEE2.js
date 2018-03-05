@@ -71,6 +71,36 @@ $(document).ready(function() {
 	    }
 	});
 	
+	//nom Entreprise checking
+	$('#nomService').keyup('input', function() {
+		var input=$(this);
+		var is_name=input.val();
+		var res=0;
+		if(is_name){
+			input.removeClass("invalid").addClass("valid");
+			$valStep2[1] = 1;
+		}else{
+			input.removeClass("valid").addClass("invalid");
+			$valStep2[1] = 0;
+		}
+		
+		for (i = 0; i < $valStep2.length; i++) {
+		    res += $valStep2[i];
+		}
+		
+		if (res < 10) {
+
+			//$('.bstp3').prop('disabled',true);
+	       return false;
+	    }else{
+	    		
+	    		//$('.bstp3').prop('disabled',false);
+	    		//alert('We good !!!');
+	    		return true;
+	    		
+	    }
+	});
+	
 	// Adresse Entreprise checking
 	$('#adresseEntreprise').keyup('input', function() {
 		var input=$(this);
@@ -198,7 +228,7 @@ $(document).ready(function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
-		if(mailRegex.test(is_name) && is_name==$('#mailGerant').val()){
+		if(mailRegex.test(is_name) && is_name==$('#mailEntreprise').val()){
 			input.removeClass("invalid").addClass("valid");
 			$valStep2[6] = 1;
 		}else{

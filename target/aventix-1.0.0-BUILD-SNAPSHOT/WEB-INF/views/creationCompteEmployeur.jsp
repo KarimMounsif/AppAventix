@@ -127,7 +127,6 @@ input.valid, textarea.valid{
            	<!-- Debut de la page -->
            	
            	    <div class="panel panel-primary">
-            		
 				<div class="panel-heading"><strong></strong></div>
 				<div class="panel-body">
 				<form:errors path="*" cssClass="error"/><br>
@@ -182,14 +181,15 @@ input.valid, textarea.valid{
 				
 				
 				</div>
-				</div>
-				</div>
-				</div>
+		     </div>
+				<!--</div>
+				-->
+			
 				
 
 			
         
-    		</div>
+    		
     		
 			
        
@@ -342,7 +342,7 @@ input.valid, textarea.valid{
     <div class="row">
 	<div class="col-md-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><strong>Papier au format PDF ou JPEG (a définir avec l'équipe)</strong> <small> </small></div>
+				<div class="panel-heading"><strong>Papier au format PDF ou JPEG (à définir avec le client)</strong> <small> </small></div>
 				<div class="panel-body">
 				
 				<div class="row">
@@ -358,7 +358,7 @@ input.valid, textarea.valid{
 				<div class="col-md-6" style="position:relative;">
 				
 				<div class="form-group">
-  				<label for="validate-text">2. Casier Judiciaire :<span class="req">* </span></label> </br>
+  				<label for="validate-text">2. Document 2 :<span class="req">* </span></label> </br>
   				<input type="file" name="file" id="uploadFile2"><br/>
   				</div>
   				

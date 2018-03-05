@@ -28,12 +28,7 @@
   <!-- Main Stylesheet File -->
   <link href="resources/CSS/monCSS/styleOnePage.css" rel="stylesheet">
 
-  <!-- =======================================================
-    Theme Name: Avilon
-    Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+
 </head>
 <body>
 <header id="header">
@@ -48,12 +43,10 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#about">A propos</a></li>
+          <li><a href="#features">Nos Services</a></li>
+          <li><a href="#pricing">Prix</a></li>
+          <li><a href="#contact">Contactez-Nous</a></li>
           <li class="menu-has-children"><a href="#">Devenir Partenaire Aventix</a>
             <ul>
               <li><a href="<c:url value="/creationCompteCommercant"/>">Je suis Commerçant</a></li>
@@ -73,8 +66,8 @@
   <section id="intro">
 
     <div class="intro-text">
-      <h2>Welcome to Aventix</h2>
-      <p>We are team of talanted designers making websites</p>
+      <h2>Bienvenue Chez Aventix</h2>
+      <p>La solution ticket restaurant 3.0</p>
       <a href="#about" class="btn-get-started scrollto">Lancez-vous !</a>
     </div>
 
@@ -104,7 +97,7 @@
     <section id="about" class="section-bg">
       <div class="container-fluid">
         <div class="section-header">
-          <h3 class="section-title">About Us</h3>
+          <h3 class="section-title">A Propos</h3>
           <span class="section-divider"></span>
           <p class="section-description">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque<br>

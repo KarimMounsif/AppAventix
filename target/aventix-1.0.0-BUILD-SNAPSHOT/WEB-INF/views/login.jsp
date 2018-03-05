@@ -70,16 +70,17 @@ color:red;
   		<div class="col-md-6" style="padding-top:100px;padding-left:100px;">
   		
   			<div class="jumbotron" >
-
-			<div><h2>${successMsg}</h2></div>
-  				
-  					
-  				 <h3>Message</h3>
+		
+  				 <h3>Aventix</h3>
   				<p>
-  					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+  					Votre espace partenaire intuitif à portée de quelque clics<br/>
+  					--> Gérer vos employés<br/>
+  					--> Visibilité sur vos transactions<br/>
+  					--> Recharger les comptes<br/>
+  					--> Consulter votre solde en temps réel<br/>
   				</p>
   				<p>
-  					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+  					<a class="btn btn-primary btn-large" href="<c:url value="/"/>">Découvrez Aventix</a>
   				</p>
   			</div>
   			
