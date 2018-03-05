@@ -1,5 +1,6 @@
 package com.qrcodeteam.utilitaire;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class JsonResponse {
@@ -13,6 +14,12 @@ public class JsonResponse {
 		this.validated = validated;
 		this.errorMessages = errorMessages;
 		this.successMessages = successMessages;
+	}
+	
+	public JsonResponse() {
+		this.validated=false;
+		this.errorMessages=new HashMap<String,String>();
+		this.successMessages=new HashMap<String,String>();
 	}
 
 

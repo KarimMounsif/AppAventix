@@ -9,24 +9,25 @@ function commandeAjaxCall(){
 		url:"commandeQrcode",
 		type:"POST",
 		data: "qte="+$qte,
-		//data: "qte="+$qte,
 		beforeSend: function(xhr) {
-	        // disable button passer commande,
-			// Faire apparaitre le spinner dans un modal
-	       
+			$("#buttonAjaxCall").removeClass('active');
 	        $("#buttonAjaxCall").addClass('desactive');
+	        $("#loaderDiv").removeClass('desactive');
 	        $("#loaderDiv").addClass('active');
-
-
 	    },
 	    success: function(jsr) {
-	        if (jsr.validated) {
+	    	var jsrO=JSON.parse(jsr);
+	        if (jsrO.validated) {
 	         // Tout s'est bien passé
-	        	$("#buttonAjaxCall").addClass('active');
-	        	$("#loaderDiv").addClass('desactive');
-	        	$("#mesgSuccess").addClass('active');
+				$("#buttonAjaxCall").removeClass('desactive');
+		        $("#buttonAjaxCall").addClass('active');
+		        $("#loaderDiv").removeClass('active');
+		        $("#loaderDiv").addClass('desactive');
+		        $("#mesgSuccess").addClass('active');
+		        alert("Bravo ==> "+jsrO)
 	        } else {
 	          // il y a eu un souci
+	        	alert("il y a souci ==> "+jsrO)
 	        	$("#mesgError").addClass('active');
 	        }
 	    },
@@ -39,7 +40,10 @@ function commandeAjaxCall(){
 	    complete: function() {
 	       //Fin du traitement; 
 	       //desactiver le modal
-	    		
+			$("#buttonAjaxCall").removeClass('desactive');
+	        $("#buttonAjaxCall").addClass('active');
+	        $("#loaderDiv").removeClass('active');
+	        $("#loaderDiv").addClass('desactive');
 	    },
 		
 	    dataType: "text"

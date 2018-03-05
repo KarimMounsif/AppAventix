@@ -36,6 +36,7 @@ import com.qrcodeteam.dao.CreationCompteDAO;
 import com.qrcodeteam.dao.DBConnexion;
 import com.qrcodeteam.utilitaire.IdentifiantGenerateur;
 import com.qrcodeteam.validator.CommerceGerantValidator;
+import com.qrcodeteam.validator.EntrepriseEmployeValidator;
 
 /**
  * Handles requests for the application home page.
@@ -167,9 +168,96 @@ public class CreationCompteController {
 
 		EntrepriseEmploye entrepriseEmployeForm=new EntrepriseEmploye(new Entreprise(),new Employe());	
 		model.put("entrepriseEmployeForm",entrepriseEmployeForm);
-		
+		List<String> civiliteList = new ArrayList<String>();
+		civiliteList.add("Monsieur");
+		civiliteList.add("Madame");
+		civiliteList.add("Mademoiselle");
+		model.put("civiliteList", civiliteList);
 		return "creationCompteEmployeur";
 	
+	}
+	
+	
+	@RequestMapping(value="/creationCompteEmployeur", method= RequestMethod.POST)
+	public String processCreerCompteEmployeur(Map<String, Object>model, @ModelAttribute("entrepriseEmployeForm") EntrepriseEmploye registerEntrepriseEmploye,  BindingResult result,@RequestParam("file") MultipartFile[] files, HttpSession session) {
+		// instanciate validator
+		EntrepriseEmployeValidator entrepriseEmployeurValidator=new EntrepriseEmployeValidator();
+		
+		// Process validation
+		entrepriseEmployeurValidator.validate(registerEntrepriseEmploye, result);
+		
+        // Présence d'erreur dans le formulaire
+		if (result.hasErrors()) {
+			
+			 System.out.println("il y a des erreurs");
+			 
+		     //Erreur dans le formulaire 
+			 //Remplir le formulaire avec les element precedemment inscrit par l'utilisateur
+			 
+		 return "creationCompteEmployeur";
+		 
+		}
+		else {
+			
+			// Générer EmployeurID
+			String idEmploye=IdentifiantGenerateur.generatorIdentifiant(8);
+			registerEntrepriseEmploye.getEm().setIdEmploye(idEmploye);
+			registerEntrepriseEmploye.getEn().setIdEmploye(idEmploye);
+			
+			// Générer EntrepriseID
+			String idEntreprise=IdentifiantGenerateur.generatorIdentifiant(8);
+			registerEntrepriseEmploye.getEn().setIdEntreprise(idEntreprise);
+			registerEntrepriseEmploye.getEm().setIdEntreprise(idEntreprise);
+		
+			// TODO changer les deux méthodes par une seule méthode transaction (Atomicité)
+			//add commerce to DB
+			CreationCompteDAO.insertEntreprise(DBConnexion.getConnection(), registerEntrepriseEmploye.getEn());
+			
+			//add gerant to DB
+			CreationCompteDAO.insertEmployeur(DBConnexion.getConnection(), registerEntrepriseEmploye.getEm());
+			
+			
+			
+			//Telecharger les fichiers 
+			String message = "";
+			for (int i = 0; i < files.length; i++) {
+				MultipartFile file = files[i];
+				
+				//String name = names[i];
+				try {
+					byte[] bytes = file.getBytes();
+
+					// Creating the directory to store file
+					String rootPath = System.getProperty("catalina.home");
+					File dir = new File(rootPath + File.separator + "tmpFiles_"+registerEntrepriseEmploye.getEm().getNomEmploye()+registerEntrepriseEmploye.getEn().getIdEmploye());
+					if (!dir.exists())
+						dir.mkdirs();
+
+					// Create the file on server
+					File serverFile = new File(dir.getAbsolutePath()
+							+ File.separator + file.getOriginalFilename());
+					BufferedOutputStream stream = new BufferedOutputStream(
+							new FileOutputStream(serverFile));
+					stream.write(bytes);
+					stream.close();
+
+					logger.info("Server File Location="+ serverFile.getAbsolutePath());
+					
+					return "successCreationCompteCommercant";
+				} catch (Exception e) {
+				
+					System.out.println("You failed to upload => " + e.getMessage());
+					return "errorlogin";
+				}
+			}
+			
+			
+		}
+		
+		return "errorlogin";
+		
+		
+		//return "";
 	}
 	
 	

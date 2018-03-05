@@ -11,8 +11,8 @@ $(document).ready(function() {
 	var mailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 	var phoneRegex=/^\d{9}$/;
 	var ribRegex=/^\d{22}$/;
-	// siret Commerce checking 
-	$('#siretCommerce').keyup('input', function() {
+	// siret Entreprise checking 
+	$('#siretEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -41,8 +41,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	//nom Commerce checking
-	$('#nomCommerce').keyup('input', function() {
+	//nom Entreprise checking
+	$('#nomEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -71,8 +71,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// Adresse Commerce checking
-	$('#adresseCommerce').keyup('input', function() {
+	// Adresse Entreprise checking
+	$('#adresseEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -102,8 +102,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// codePostalCommerce checking
-	$('#codePostalCommerce').keyup('input', function() {
+	// codePostalEntreprise checking
+	$('#codePostalEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -133,8 +133,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// villeCommerce checking
-	$('#villeCommerce').keyup('input', function() {
+	// villeEntreprise checking
+	$('#villeEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -163,8 +163,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// mailCommerce checking
-	$('#mailCommerce').keyup('input', function() {
+	// mailEntreprise checking
+	$('#mailEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -193,8 +193,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// mailCommerceConf
-	$('#mailCommerceConf').keyup('input', function() {
+	// mailEntrepriseConf
+	$('#mailEntrepriseConf').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -222,8 +222,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// ribCommerce checking 
-	$('#ribCommerce').keyup('input', function() {
+	// ribEntreprise checking 
+	$('#ribEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -251,8 +251,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// telCommerce checking 
-	$('#telCommerce').keyup('input', function() {
+	// telEntreprise checking 
+	$('#telEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -281,7 +281,7 @@ $(document).ready(function() {
 	});
 	
 	// capitalSocial checking 
-	$('#capitalSocialCommerce').keyup('input', function() {
+	$('#capitalSocialEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -310,8 +310,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// effectif commerce checking 
-	$('#effectifCommerce').keyup('input', function() {
+	// effectif Entreprise checking 
+	$('#effectifEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;

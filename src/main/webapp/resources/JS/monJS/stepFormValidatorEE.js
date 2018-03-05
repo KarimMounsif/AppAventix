@@ -10,8 +10,8 @@ $(document).ready(function() {
 	var phoneRegex=/^\d{9}$/;
 	var mailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 	
-	// nom Gerant checking 
-	$('#nomGerant').keyup('input', function() {
+	// nom Employe checking 
+	$('#nomEmploye').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -27,7 +27,7 @@ $(document).ready(function() {
 		    res += $valStep1[i];
 		}
 		
-		if (res < 8) {
+		if (res < 5) {
 
 			$('.bstp2').prop('disabled',true);
 	        return false;
@@ -40,8 +40,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	//prenom Gerant checking
-	$('#prenomGerant').keyup('input', function() {
+	//prenom Employe checking
+	$('#prenomEmploye').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -57,37 +57,7 @@ $(document).ready(function() {
 		    res += $valStep1[i];
 		}
 		
-		if (res < 8) {
-
-			$('.bstp2').prop('disabled',true);
-	        return false;
-	    }else{
-	    		
-	    		$('.bstp2').prop('disabled',false);
-	    		//alert('We good !!!');
-	    		return true;
-	    		
-	    }
-	});
-	
-	// Adresse Gerant checking
-	$('#adresseGerant').keyup('input', function() {
-		var input=$(this);
-		var is_name=input.val();
-		var res=0;
-		if(is_name){
-			input.removeClass("invalid").addClass("valid");
-			$valStep1[2] = 1;
-		}else{
-			input.removeClass("valid").addClass("invalid");
-			$valStep1[2] = 0;
-		}
-		
-		for (i = 0; i < $valStep1.length; i++) {
-		    res += $valStep1[i];
-		}
-		
-		if (res < 8) {
+		if (res < 5) {
 
 			$('.bstp2').prop('disabled',true);
 	        return false;
@@ -101,69 +71,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// Boite Postal Gerant checking
-	$('#codePostalGerant').keyup('input', function() {
-		var input=$(this);
-		var is_name=input.val();
-		var res=0;
-		if(intRegex.test(is_name)){
-			input.removeClass("invalid").addClass("valid");
-			$valStep1[3] = 1;
-		}else{
-			input.removeClass("valid").addClass("invalid");
-			$valStep1[3] = 0;
-		}
-		
-		for (i = 0; i < $valStep1.length; i++) {
-		    res += $valStep1[i];
-		}
-		
-		if (res < 8) {
-
-			$('.bstp2').prop('disabled',true);
-	        return false;
-	    }else{
-	    		
-	    		$('.bstp2').prop('disabled',false);
-	    		//alert('We good !!!');
-	    		return true;
-	    		
-	    }
-	});
-	
-	
-	// ville Gerant checking
-	$('#villeGerant').keyup('input', function() {
-		var input=$(this);
-		var is_name=input.val();
-		var res=0;
-		if(is_name){
-			input.removeClass("invalid").addClass("valid");
-			$valStep1[4] = 1;
-		}else{
-			input.removeClass("valid").addClass("invalid");
-			$valStep1[4] = 0;
-		}
-		
-		for (i = 0; i < $valStep1.length; i++) {
-		    res += $valStep1[i];
-		}
-		
-		if (res < 8) {
-	      
-			$('.bstp2').prop('disabled',true);
-	        return false;
-	    }else{
-	    		
-	    		$('.bstp2').prop('disabled',false);
-	    		return true;
-	    		
-	    }
-	});
-	
-	
-	// Mail Gerant checking
-	$('#mailGerant').keyup('input', function() {
+	// Mail Employe checking
+	$('#mailEmploye').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -179,7 +88,7 @@ $(document).ready(function() {
 		    res += $valStep1[i];
 		}
 		
-		if (res < 8) {
+		if (res < 5) {
 	     
 			$('.bstp2').prop('disabled',true);
 	        return false;
@@ -192,12 +101,12 @@ $(document).ready(function() {
 	});
 	
 	
-	// Mail Gerant checking
-	$('#mailGerantConf').keyup('input', function() {
+	// Mail Employe checking
+	$('#mailEmployeConf').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
-		if(mailRegex.test(is_name) && is_name==$('#mailGerant').val()){
+		if(mailRegex.test(is_name) && is_name==$('#mailEmploye').val()){
 			input.removeClass("invalid").addClass("valid");
 			$valStep1[6] = 1;
 		}else{
@@ -209,7 +118,7 @@ $(document).ready(function() {
 		    res += $valStep1[i];
 		}
 		
-		if (res < 8) {
+		if (res < 5) {
 
 			$('.bstp2').prop('disabled',true);
 	        return false;
@@ -225,8 +134,8 @@ $(document).ready(function() {
 	
 	 
 	
-	// tel Gerant checking 
-	$('#telGerant').keyup('input', function() {
+	// tel Employe checking 
+	$('#telEmploye').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -242,7 +151,7 @@ $(document).ready(function() {
 		    res += $valStep1[i];
 		}
 		
-		if (res < 8) {
+		if (res < 5) {
 
 			$('.bstp2').prop('disabled',true);
 	        return false;

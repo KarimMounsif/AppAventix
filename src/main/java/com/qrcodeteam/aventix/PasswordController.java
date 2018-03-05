@@ -34,7 +34,7 @@ import com.qrcodeteam.validator.MdpValidator;
 public class PasswordController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PasswordController.class);
-	
+	 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -16,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qrcodeteam.beans.Commande;
+import com.qrcodeteam.beans.Entreprise;
+import com.qrcodeteam.beans.Qrcode;
+import com.qrcodeteam.dao.CommandeDAO;
+import com.qrcodeteam.dao.DBConnexion;
+import com.qrcodeteam.utilitaire.CommandeUtils;
+import com.qrcodeteam.utilitaire.IdentifiantGenerateur;
 import com.qrcodeteam.utilitaire.JsonResponse;
 
 
@@ -44,17 +51,32 @@ public class CommandeController {
 	
 	public @ResponseBody JsonResponse processCommandeQrCode(Map<String, Object> model,@RequestParam("qte") int qte,HttpSession session) {
 		JsonResponse jsr=new JsonResponse(false,null,null);
+		List <Qrcode> listQrCode = null;
+		float prixUnitaireQrCode=(float) 9.99;
 		System.out.println("le nombre de Qr code commandé ==>"+qte);
-		try        
-		{
-		    Thread.sleep(5000);
-		    jsr.setValidated(true);
-		    
-		} 
-		catch(InterruptedException ex) 
-		{
-		    Thread.currentThread().interrupt();
-		}
+		
+		// créer commande
+		Commande commande= new Commande();
+		commande.setDateCommande(new DateTime());
+		//commande.setIdEntreprise(((Entreprise)session.getAttribute("userEntreprise")).getIdEntreprise());
+		commande.setIdEntreprise("X39Lf");
+		commande.setIdCommande(IdentifiantGenerateur.generatorIdentifiant(8));
+		commande.setPrixCommande(CommandeUtils.calculPrixCommande((float)9.99, qte));
+		commande.setQuantiteCommande(qte);
+		commande.setStatusLivraison(0);
+		
+		// génération des QRcodes
+		//listQrCode=IdentifiantGenerateur.generatorListQR(qte,(Entreprise)session.getAttribute("userEntreprise"),prixUnitaireQrCode,commande);
+		
+		Entreprise e = new Entreprise();
+		e.setIdEntreprise("X39Lf");
+		listQrCode=IdentifiantGenerateur.generatorListQR(qte,e,prixUnitaireQrCode,commande);
+		
+		// Persister commande et Qrcode : finaliser commande puis livrer QRcode à Employe.
+		
+		jsr=CommandeDAO.commanderQRcode(DBConnexion.getConnection(), commande, listQrCode);
+		
+		
 		
 		return jsr;
 	}

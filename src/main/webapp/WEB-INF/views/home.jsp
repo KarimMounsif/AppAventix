@@ -1,8 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
 <head>
-  <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Home</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
@@ -27,12 +28,7 @@
   <!-- Main Stylesheet File -->
   <link href="resources/CSS/monCSS/styleOnePage.css" rel="stylesheet">
 
-  <!-- =======================================================
-    Theme Name: Avilon
-    Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+
 </head>
 <body>
 <header id="header">
@@ -47,15 +43,13 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#about">A propos</a></li>
+          <li><a href="#features">Nos Services</a></li>
+          <li><a href="#pricing">Prix</a></li>
+          <li><a href="#contact">Contactez-Nous</a></li>
           <li class="menu-has-children"><a href="#">Devenir Partenaire Aventix</a>
             <ul>
-              <li><a href="<c:url value="/creationCompteCommercant"/>">Je suis Commer�ant</a></li>
+              <li><a href="<c:url value="/creationCompteCommercant"/>">Je suis Commerçant</a></li>
               <li><a href="<c:url value="/creationCompteEmployeur"/>">Je suis Employeur</a></li>
             </ul>
           </li>
@@ -72,8 +66,8 @@
   <section id="intro">
 
     <div class="intro-text">
-      <h2>Welcome to Aventix</h2>
-      <p>We are team of talanted designers making websites</p>
+      <h2>Bienvenue Chez Aventix</h2>
+      <p>La solution ticket restaurant 3.0</p>
       <a href="#about" class="btn-get-started scrollto">Lancez-vous !</a>
     </div>
 
@@ -103,7 +97,7 @@
     <section id="about" class="section-bg">
       <div class="container-fluid">
         <div class="section-header">
-          <h3 class="section-title">About Us</h3>
+          <h3 class="section-title">A Propos</h3>
           <span class="section-divider"></span>
           <p class="section-description">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque<br>
@@ -250,23 +244,7 @@
       </div>
     </section><!-- #advanced-features -->
 
-    <!--==========================
-      Call To Action Section
-    ============================-->
-    <section id="call-to-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-9 text-center text-lg-left">
-            <h3 class="cta-title">Call To Action</h3>
-            <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Call To Action</a>
-          </div>
-        </div>
 
-      </div>
-    </section><!-- #call-to-action -->
 
     <!--==========================
       More Features Section
@@ -363,55 +341,41 @@
         <div class="section-header">
           <h3 class="section-title">Pricing</h3>
           <span class="section-divider"></span>
-          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+          <p class="section-description">Une offre qui défie toute concurrence</p>
         </div>
 
         <div class="row">
 
           <div class="col-lg-4 col-md-6">
             <div class="box wow fadeInLeft">
-              <h3>Free</h3>
-              <h4><sup>$</sup>0<span> month</span></h4>
+              <h3>Entreprise</h3>
+              <h4><sup>€</sup>0<span> month</span></h4>
               <ul>
-                <li><i class="ion-android-checkmark-circle"></i> Quam adipiscing vitae proin</li>
-                <li><i class="ion-android-checkmark-circle"></i> Nec feugiat nisl pretium</li>
-                <li><i class="ion-android-checkmark-circle"></i> Nulla at volutpat diam uteera</li>
-                <li><i class="ion-android-checkmark-circle"></i> Pharetra massa massa ultricies</li>
-                <li><i class="ion-android-checkmark-circle"></i> Massa ultricies mi quis hendrerit</li>
+                <li><i class="ion-android-checkmark-circle"></i> Commande illimitée de QR code</li>
+                <li><i class="ion-android-checkmark-circle"></i> Jusqu'à -30% de réduction sur l'achat de QRcode</li>
+                <li><i class="ion-android-checkmark-circle"></i> Espace de gestion intuitif</li>
+                <li><i class="ion-android-checkmark-circle"></i> Recharge Facile des comptes</li>
+        
               </ul>
-              <a href="#" class="get-started-btn">Get Started</a>
+              <a href="<c:url value="/creationCompteEmployeur"/>" class="get-started-btn">Devenir Partenaire</a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
-        <!--      <div class="box featured wow fadeInUp">
-              <h3>Business</h3>
-              <h4><sup>$</sup>29<span> month</span></h4>
-              <ul>
-                <li><i class="ion-android-checkmark-circle"></i> Quam adipiscing vitae proin</li>
-                <li><i class="ion-android-checkmark-circle"></i> Nec feugiat nisl pretium</li>
-                <li><i class="ion-android-checkmark-circle"></i> Nulla at volutpat diam uteera</li>
-                <li><i class="ion-android-checkmark-circle"></i> Pharetra massa massa ultricies</li>
-                <li><i class="ion-android-checkmark-circle"></i> Massa ultricies mi quis hendrerit</li>
-              </ul>
-              <a href="#" class="get-started-btn">Get Started</a>
-            </div>
-            
-            -->
+       
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="box wow fadeInRight">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>49<span> month</span></h4>
+              <h3>Commerce</h3>
+              <h4><sup>€</sup>10<span> month</span></h4>
               <ul>
-                <li><i class="ion-android-checkmark-circle"></i> Quam adipiscing vitae proin</li>
-                <li><i class="ion-android-checkmark-circle"></i> Nec feugiat nisl pretium</li>
-                <li><i class="ion-android-checkmark-circle"></i> Nulla at volutpat diam uteera</li>
-                <li><i class="ion-android-checkmark-circle"></i> Pharetra massa massa ultricies</li>
-                <li><i class="ion-android-checkmark-circle"></i> Massa ultricies mi quis hendrerit</li>
+                <li><i class="ion-android-checkmark-circle"></i> Promotion de votre enseigne </li>
+                <li><i class="ion-android-checkmark-circle"></i> Suivi facile des transactions</li>
+                <li><i class="ion-android-checkmark-circle"></i> Aucun équipement physique à installer</li>
+
               </ul>
-              <a href="#" class="get-started-btn">Get Started</a>
+              <a href="<c:url value="/creationCompteCommercant"/>" class="get-started-btn">Devenir Partenaire</a>
             </div>
           </div>
 
@@ -427,7 +391,7 @@
       <div class="container">
 
         <div class="section-header">
-          <h3 class="section-title">Frequently Asked Questions</h3>
+          <h3 class="section-title">Questions Fréquentes</h3>
           <span class="section-divider"></span>
           <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
         </div>
@@ -492,142 +456,7 @@
       </div>
     </section><!-- #faq -->
 
-    <!--==========================
-      Our Team Section
-    ============================-->
-    <section id="team" class="section-bg">
-      <div class="container">
-        <div class="section-header">
-          <h3 class="section-title">Our Team</h3>
-          <span class="section-divider"></span>
-          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-        </div>
-        <div class="row wow fadeInUp">
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="resources/Images/img/team/team-1.jpg" alt=""></div>
-              <h4>Walter White</h4>
-              <span>Chief Executive Officer</span>
-              <div class="social">
-                <a href=""><i class="fa fa-twitter"></i></a>
-                <a href=""><i class="fa fa-facebook"></i></a>
-                <a href=""><i class="fa fa-google-plus"></i></a>
-                <a href=""><i class="fa fa-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="resources/Images/img/team/team-2.jpg" alt=""></div>
-              <h4>Sarah Jhinson</h4>
-              <span>Product Manager</span>
-              <div class="social">
-                <a href=""><i class="fa fa-twitter"></i></a>
-                <a href=""><i class="fa fa-facebook"></i></a>
-                <a href=""><i class="fa fa-google-plus"></i></a>
-                <a href=""><i class="fa fa-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="resources/Images/img/team/team-3.jpg" alt=""></div>
-              <h4>William Anderson</h4>
-              <span>CTO</span>
-              <div class="social">
-                <a href=""><i class="fa fa-twitter"></i></a>
-                <a href=""><i class="fa fa-facebook"></i></a>
-                <a href=""><i class="fa fa-google-plus"></i></a>
-                <a href=""><i class="fa fa-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="resources/Images/img/team/team-4.jpg" alt=""></div>
-              <h4>Amanda Jepson</h4>
-              <span>Accountant</span>
-              <div class="social">
-                <a href=""><i class="fa fa-twitter"></i></a>
-                <a href=""><i class="fa fa-facebook"></i></a>
-                <a href=""><i class="fa fa-google-plus"></i></a>
-                <a href=""><i class="fa fa-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- #team -->
-
-    <!--==========================
-      Gallery Section
-    ============================-->
-    <section id="gallery">
-      <div class="container-fluid">
-        <div class="section-header">
-          <h3 class="section-title">Gallery</h3>
-          <span class="section-divider"></span>
-          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-        </div>
-
-        <div class="row no-gutters">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="gallery-item wow fadeInUp">
-              <a href="resources/Images/img/gallery/gallery-1.jpg" class="gallery-popup">
-                <img src="resources/Images/img/gallery/gallery-1.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="gallery-item wow fadeInUp">
-              <a href="resources/Images/img/gallery/gallery-2.jpg" class="gallery-popup">
-                <img src="resources/Images/img/gallery/gallery-2.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="gallery-item wow fadeInUp">
-              <a href="resources/Images/img/gallery/gallery-3.jpg" class="gallery-popup">
-                <img src="resources/Images/img/gallery/gallery-3.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="gallery-item wow fadeInUp">
-              <a href="resources/Images/img/gallery/gallery-4.jpg" class="gallery-popup">
-                <img src="resources/Images/img/gallery/gallery-4.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="gallery-item wow fadeInUp">
-              <a href="resources/Images/img/gallery/gallery-5.jpg" class="gallery-popup">
-                <img src="resources/Images/img/gallery/gallery-5.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="gallery-item wow fadeInUp">
-              <a href="resources/Images/img/gallery/gallery-6.jpg" class="gallery-popup">
-                <img src="resources/Images/img/gallery/gallery-6.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- #gallery -->
+   
 
     <!--==========================
       Contact Section
@@ -654,17 +483,17 @@
             <div class="info">
               <div>
                 <i class="ion-ios-location-outline"></i>
-                <p>A108 Adam Street<br>New York, NY 535022</p>
+                <p>20 Avenue Albert Einstein<br>Villeurbanne, 69100</p>
               </div>
 
               <div>
                 <i class="ion-ios-email-outline"></i>
-                <p>info@example.com</p>
+                <p>aventix@aventix.com</p>
               </div>
 
               <div>
                 <i class="ion-ios-telephone-outline"></i>
-                <p>+1 5589 55488 55s</p>
+                <p>(+33)7 56 47 28 19</p>
               </div>
 
             </div>

@@ -216,10 +216,11 @@ public class LoginController {
 	 * Rôle:
 	 * Deconnexion  et suppression de la session utilisateur
 	 */
-	@RequestMapping(value = "/deconnexion", method = RequestMethod.POST)
-	public String processDeconnexion(Map<String, Object>  model,SessionStatus status) {
+	@RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
+	public String processDeconnexion(Map<String, Object>  model,SessionStatus status,HttpSession session) {
 		
 		status.setComplete();
+		session.removeAttribute("userEntreprise");
 		System.out.println("Fin de la session");
 		return "redirect:/login"; 
 	}

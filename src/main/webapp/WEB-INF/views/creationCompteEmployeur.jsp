@@ -60,7 +60,7 @@ input.valid, textarea.valid{
 	border: 2px solid green;
 } 
 
- </style>
+</style>
 <title>Création de Compte Entreprise/Employeur</title>
 
 </head>
@@ -89,7 +89,7 @@ input.valid, textarea.valid{
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-  
+ 
 <div class="container-fluid mainFrame">
 <div class="container">
 <form:form id="creerCompteEmployeurEntreprise-form" action="creationCompteEmployeur" method ="post" commandName="entrepriseEmployeForm" enctype="multipart/form-data">
@@ -122,108 +122,74 @@ input.valid, textarea.valid{
     <div class="row setup-content" id="step-1">
         
            <div class="row">
-			<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading"><strong></strong> <small> </small></div>
+           <div class="col-md-3"></div>
+           <div class="col-md-6">
+           	<!-- Debut de la page -->
+           	
+           	    <div class="panel panel-primary">
+				<div class="panel-heading"><strong></strong></div>
 				<div class="panel-body">
-					<!-- Panel Begin -->
-				<div class="row">
-        			<div class="col-md-6">
-        			<label for="civilite">Civilité :<span class="req">* </span></label>
+				<form:errors path="*" cssClass="error"/><br>
+           	        	<label for="civilite">Civilité :<span class="req">* </span></label>
         				<div class="form-group">
                      <form:select name="civiliteEmploye" id="civiliteEmploye"  class="form-control"  path="em.civiliteEmploye" items="${civiliteList}" required="required"/>
         				</div>
-        			</div>
-        			
-        			<div class="col-md-6">
-        				 <div class="form-group">
+                      <div class="form-group">
+              		  <label for="Nom">Nom :<span class="req">* </span></label> 
+              		  <form:input type="text" class="form-control" path="em.nomEmploye" name="nomEmploye" id="nomEmploye" placeholder="MOUNSIF" required="required"/>
+            			</div> 
+            			<div class="form-group">
+               		 <label for="validate-text">Prenom :<span class="req">* </span></label> 
+              		 <form:input type="text" class="form-control" path="em.prenomEmploye" name="prenomEmploye" id="prenomEmploye" placeholder="Karim" required="required"/>
+            			</div>
+            			 <div class="form-group">
         				 <label for="ddn">Date de Naissance :<span class="req">* </span></label>
         				<form:input size="16" type="text" path="em.ddnEmploye" name="ddnEmploye" id="ddnEmploye"  class="form-control form_datetime" readonly="readonly" required="required"/>    
-                      </div>      
-        			</div>
-        			
-        			</div>
-        		
-        		
-        		<div class="row">
-        		<div class="col-md-6">
-            <div class="form-group">
-                <label for="Nom">Nom :<span class="req">* </span></label> 
-                <form:input type="text" class="form-control" path="em.nomEmploye" name="nomEmploye" id="nomEmploye" placeholder="MOUNSIF" required="required"/>
-            </div>
-            </div>
-            <div class="col-md-6">
-            <div class="form-group">
-                <label for="validate-text">Prenom :<span class="req">* </span></label> 
-                <form:input type="text" class="form-control" path="em.prenomEmploye" name="prenomEmploye" id="prenomEmploye" placeholder="Karim" required="required"/>
-            </div>
-            </div>
-        		</div>
-        	
-        		
-        		<div class="row">
-        		<div class="col-md-6">
-        		 <!-- Pas d'adresse -->
-            </div>
-        		<div class="col-md-6">
-        		 <div class="form-group">
-                <label for="validate-text">Email :<span class="req">* </span></label> 
-                <form:input type="text" class="form-control" path="em.mailEmploye" name="mailEmploye" id="mailEmploye" placeholder="karim.mounsif@insa-lyon.fr" required="required"/>
-            </div>
-        		</div>
-        		</div>
-        		
-        	
-        		<div class="row">
-        		
-        		 <div class="col-md-2 col-xs-2">
-        		<!-- Pas de code Postale -->
-            </div>
-            <div class="col-md-4 col-xs-4">
-            <!-- Pas de Ville  --> 
-        		</div>
-        		
-        		<div class="col-md-6">
-        			<div class="form-group">
-                <label for="validate-text">Confirmation Email :<span class="req">* </span></label> 
-                <input type="text" class="form-control" name="mailEmployeConf" id="mailEmployeConf" placeholder="karim.mounsif@insa-lyon.fr" required="required">
-           		</div>
-        		</div>
-        		
-        		</div>
-        		
-        		
-        		<div class="row">
-        		<div class="col-md-6">
-        		 <label for="validate-text">Téléphone :<span class="req">* </span></label>
-			  <div class="input-group">
-			   <span class="input-group-addon">(+33)</span>
-			  <form:input type="text" class="form-control" path="em.telEmploye" name="telEmploye" id="telEmploye" placeholder="756473829" aria-describedby="inputGroupSuccess1Status"/>
-  			</div>
-        		</div>
-        		
-        		
-        		</div>
-        		<div class="row" style="padding-right:20px">
+                      </div>
+            			<div class="form-group">
+               		 <label for="validate-text">Email :<span class="req">* </span></label> 
+               		 <form:input type="text" class="form-control" path="em.mailEmploye" name="mailEmploye" id="mailEmploye" placeholder="karim.mounsif@insa-lyon.fr" required="required"/>
+            			</div>
+            			<div class="form-group">
+              	  	<label for="validate-text">Confirmation Email :<span class="req">* </span></label> 
+               		<input type="text" class="form-control" name="mailEmployeConf" id="mailEmployeConf" placeholder="karim.mounsif@insa-lyon.fr" required="required">
+           			</div>
+           			<label for="validate-text">Téléphone :<span class="req">* </span></label>
+			  		<div class="input-group">
+			   		<span class="input-group-addon">(+33)</span>
+			  		<form:input type="text" class="form-control" path="em.telEmploye" name="telEmploye" id="telEmploye" placeholder="756473829" aria-describedby="inputGroupSuccess1Status"/>
+  					</div>
+  					<div class="row" style="padding-right:20px;padding-top:12px">
 				            
              <ul class="list-inline pull-right" >
-             <button id="activate:step-2" class="btn btn-primary btn-lg bstp2" >
-             Suivant
+             <button id="activate:step-2" type="button" class="btn btn-primary btn-lg bstp2" disabled="disabled" >
+             Suivant 
              </button>
              </ul>
             </div>
+            			
+        			</div>
+        			</div>
+        				
+           	<!-- Fin de la page -->
+           
+           </div>
+           <div class="col-md-3"></div>
+			
+        		
 					<!-- Panel End -->
 				
 				
 				</div>
-				</div>
-				</div>
-				</div>
+		     </div>
+				<!--</div>
+				-->
+			
 				
 
 			
         
-    		</div>
+    		
     		
 			
        
@@ -356,8 +322,8 @@ input.valid, textarea.valid{
         
         <!-- Button -->
             <ul class="list-inline pull-right">
-                <button id="activate:step-1" class="btn btn-primary btn-lg backbstp1">Précédent</button>
-                <button id="activate:step-3" class="btn btn-primary btn-lg bstp3" >Suivant</button>
+                <button id="activate:step-1" type="button" class="btn btn-primary btn-lg backbstp1">Précédent</button>
+                <button id="activate:step-3" type="button" class="btn btn-primary btn-lg bstp3" disabled="disabled">Suivant</button>
             </ul>
         
     </div>
@@ -376,7 +342,7 @@ input.valid, textarea.valid{
     <div class="row">
 	<div class="col-md-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><strong>Papier au format PDF ou JPEG (a définir avec l'équipe)</strong> <small> </small></div>
+				<div class="panel-heading"><strong>Papier au format PDF ou JPEG (à définir avec le client)</strong> <small> </small></div>
 				<div class="panel-body">
 				
 				<div class="row">
@@ -392,7 +358,7 @@ input.valid, textarea.valid{
 				<div class="col-md-6" style="position:relative;">
 				
 				<div class="form-group">
-  				<label for="validate-text">2. Casier Judiciaire :<span class="req">* </span></label> </br>
+  				<label for="validate-text">2. Document 2 :<span class="req">* </span></label> </br>
   				<input type="file" name="file" id="uploadFile2"><br/>
   				</div>
   				
@@ -411,8 +377,8 @@ input.valid, textarea.valid{
      -->
          
           <ul class="list-inline pull-right">
-                <button id="activate:step-2" class="btn btn-primary btn-lg backbstp2">Précédent</button>
-                <button id="activate:step-4" class="btn btn-primary btn-lg bstp4" disabled="disabled">Suivant</button>
+                <button id="activate:step-2" type="button" class="btn btn-primary btn-lg backbstp2">Précédent</button>
+                <button id="activate:step-4" type="button" class="btn btn-primary btn-lg bstp4" disabled="disabled">Suivant</button>
              	</ul>
     </div>
     
@@ -526,7 +492,7 @@ Sed quis luctus arcu. Curabitur mollis purus quis semper consectetur. Pellentesq
 					</div>
 					
 					           <ul class="list-inline pull-right">
-					                <button id="activate:step-3" class="btn btn-primary btn-lg backbstp3">Précédent</button>
+					                <button id="activate:step-3" type="button" class="btn btn-primary btn-lg backbstp3">Précédent</button>
 					              <!--   <button id="activate:step-2" class="btn btn-primary btn-lg">Soumettre</button>  -->
 					                <form:input type="submit" path="" class="btn btn-primary btn-lg" value="Soumettre" disabled="disabled"/>
 					           </ul>

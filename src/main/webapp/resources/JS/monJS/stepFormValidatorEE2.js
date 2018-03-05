@@ -11,8 +11,8 @@ $(document).ready(function() {
 	var mailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 	var phoneRegex=/^\d{9}$/;
 	var ribRegex=/^\d{22}$/;
-	// siret Commerce checking 
-	$('#siretCommerce').keyup('input', function() {
+	// siret Entreprise checking 
+	$('#siretEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -41,8 +41,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	//nom Commerce checking
-	$('#nomCommerce').keyup('input', function() {
+	//nom Entreprise checking
+	$('#nomEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -71,8 +71,38 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// Adresse Commerce checking
-	$('#adresseCommerce').keyup('input', function() {
+	//nom Entreprise checking
+	$('#nomService').keyup('input', function() {
+		var input=$(this);
+		var is_name=input.val();
+		var res=0;
+		if(is_name){
+			input.removeClass("invalid").addClass("valid");
+			$valStep2[1] = 1;
+		}else{
+			input.removeClass("valid").addClass("invalid");
+			$valStep2[1] = 0;
+		}
+		
+		for (i = 0; i < $valStep2.length; i++) {
+		    res += $valStep2[i];
+		}
+		
+		if (res < 10) {
+
+			//$('.bstp3').prop('disabled',true);
+	       return false;
+	    }else{
+	    		
+	    		//$('.bstp3').prop('disabled',false);
+	    		//alert('We good !!!');
+	    		return true;
+	    		
+	    }
+	});
+	
+	// Adresse Entreprise checking
+	$('#adresseEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -102,8 +132,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// codePostalCommerce checking
-	$('#codePostalCommerce').keyup('input', function() {
+	// codePostalEntreprise checking
+	$('#codePostalEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -133,8 +163,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// villeCommerce checking
-	$('#villeCommerce').keyup('input', function() {
+	// villeEntreprise checking
+	$('#villeEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -163,8 +193,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// mailCommerce checking
-	$('#mailCommerce').keyup('input', function() {
+	// mailEntreprise checking
+	$('#mailEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -193,12 +223,12 @@ $(document).ready(function() {
 	});
 	
 	
-	// mailCommerceConf
-	$('#mailCommerceConf').keyup('input', function() {
+	// mailEntrepriseConf
+	$('#mailEntrepriseConf').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
-		if(mailRegex.test(is_name) && is_name==$('#mailGerant').val()){
+		if(mailRegex.test(is_name) && is_name==$('#mailEntreprise').val()){
 			input.removeClass("invalid").addClass("valid");
 			$valStep2[6] = 1;
 		}else{
@@ -222,8 +252,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// ribCommerce checking 
-	$('#ribCommerce').keyup('input', function() {
+	// ribEntreprise checking 
+	$('#ribEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -251,8 +281,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// telCommerce checking 
-	$('#telCommerce').keyup('input', function() {
+	// telEntreprise checking 
+	$('#telEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -281,7 +311,7 @@ $(document).ready(function() {
 	});
 	
 	// capitalSocial checking 
-	$('#capitalSocialCommerce').keyup('input', function() {
+	$('#capitalSocialEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;
@@ -310,8 +340,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// effectif commerce checking 
-	$('#effectifCommerce').keyup('input', function() {
+	// effectif Entreprise checking 
+	$('#effectifEntreprise').keyup('input', function() {
 		var input=$(this);
 		var is_name=input.val();
 		var res=0;

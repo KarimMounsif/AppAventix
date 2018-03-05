@@ -37,9 +37,9 @@ public class HomeController {
 		
 		//model.addAttribute("serverTime", formattedDate );
 		
-		//return "home";
+		return "home";
 		//return "homeEntreprise";
-		return "redirect:/commandeQrcode";
+		//return "redirect:/commandeQrcode";
 		//return "successCreationCompteCommercant";
 		//return "creationCompteCommercant";
 		//return "redirect:/creationCompteCommercant";

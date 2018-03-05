@@ -24,10 +24,10 @@ function commandeAjaxCall(){
 		        $("#loaderDiv").removeClass('active');
 		        $("#loaderDiv").addClass('desactive');
 		        $("#mesgSuccess").addClass('active');
-		        alert("Bravo ==> "+jsrO.validated)
+		        alert("Message ==> "+jsrO.successMessages.msg)
 	        } else {
 	          // il y a eu un souci
-	        	alert("il y a souci ==> "+jsrO)
+	        	alert("Bravo ==> "+jsrO.successMessages)
 	        	$("#mesgError").addClass('active');
 	        }
 	    },

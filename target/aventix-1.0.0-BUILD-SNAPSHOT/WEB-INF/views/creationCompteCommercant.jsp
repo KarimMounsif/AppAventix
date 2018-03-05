@@ -217,7 +217,7 @@ input.valid, textarea.valid{
         		<div class="row" style="padding-right:20px">
 				            
              <ul class="list-inline pull-right" >
-             <button id="activate:step-2" class="btn btn-primary btn-lg bstp2" disabled="diasbled">
+             <button id="activate:step-2" type="button" class="btn btn-primary btn-lg bstp2" disabled="disabled">
              Suivant
              </button>
              </ul>
@@ -369,8 +369,8 @@ input.valid, textarea.valid{
         
         <!-- Button -->
             <ul class="list-inline pull-right">
-                <button id="activate:step-1" class="btn btn-primary btn-lg backbstp1">Précédent</button>
-                <button id="activate:step-3" class="btn btn-primary btn-lg bstp3" disabled="disabled">Suivant</button>
+                <button id="activate:step-1" type="button" class="btn btn-primary btn-lg backbstp1">Précédent</button>
+                <button id="activate:step-3" type="button" btn btn-primary btn-lg bstp3" disabled="disabled">Suivant</button>
             </ul>
         
     </div>
@@ -424,8 +424,8 @@ input.valid, textarea.valid{
      -->
          
           <ul class="list-inline pull-right">
-                <button id="activate:step-2" class="btn btn-primary btn-lg backbstp2">Précédent</button>
-                <button id="activate:step-4" class="btn btn-primary btn-lg bstp4" disabled="disabled">Suivant</button>
+                <button id="activate:step-2" type="button" class="btn btn-primary btn-lg backbstp2">Précédent</button>
+                <button id="activate:step-4" type="button" class="btn btn-primary btn-lg bstp4" disabled="disabled">Suivant</button>
              	</ul>
     </div>
     
@@ -539,7 +539,7 @@ Sed quis luctus arcu. Curabitur mollis purus quis semper consectetur. Pellentesq
 					</div>
 					
 					           <ul class="list-inline pull-right">
-					                <button id="activate:step-3" class="btn btn-primary btn-lg backbstp3">Précédent</button>
+					                <button type="button" id="activate:step-3" class="btn btn-primary btn-lg backbstp3">Précédent</button>
 					              <!--   <button id="activate:step-2" class="btn btn-primary btn-lg">Soumettre</button>  -->
 					                <form:input type="submit" path="" class="btn btn-primary btn-lg" value="Soumettre" disabled="disabled"/>
 					           </ul>

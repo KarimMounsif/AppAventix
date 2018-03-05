@@ -47,6 +47,14 @@ public class DBConnexion {
 		}
 	}
 	
+	public static void closePreparedStatement(PreparedStatement pstmt) {
+		try {
+			pstmt.close();
+		}catch(Exception ex) {
+			ex.getMessage();
+		}
+	}
+	
 	
 	
 	public static void main (String []args) {
