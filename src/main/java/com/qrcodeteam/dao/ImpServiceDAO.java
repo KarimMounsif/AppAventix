@@ -23,7 +23,7 @@ import com.qrcodeteam.beans.Qrcode;
 public class ImpServiceDAO implements InterfaceServiceDAO{
 	static DateTimeFormatter dtfc = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 	static DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
-	static final float PLAFOND_JOURNALIER = 18;
+	static final float PLAFOND_JOURNALIER = 19;
 	
 	public ImpServiceDAO() {
 		
@@ -82,6 +82,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 						e.setDateCreationCompteEmploye(rs.getString("dateCreationCompteEmploye").substring(0, 10));
 						e.setDateDerniereConnexionEmploye(rs.getString("dateDerniereConnexionEmploye").substring(0, 10)); 
 						e.setIdEntreprise(rs.getString("idEntreprise"));
+						e.setStatusCompteEmploye(rs.getInt("statusCompteEmploye"));
 						//Recuperer son QrCode
 						
 						pstmt3 = con.prepareStatement(req3);
@@ -172,7 +173,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 		try {
 				pstmt1 = con.prepareStatement(req1);
 				pstmt1.setString(1, mailGerant);
-				pstmt1.setString(2, mdpGerant);
+				pstmt1.setString(2, DigestUtils.md5Hex(mdpGerant));
 				rs = pstmt1.executeQuery();	
 		if(rs.next()) {
 			
@@ -183,7 +184,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 					
 					pstmt2 = con.prepareStatement(req2);
 					pstmt2.setString(1, mailGerant);
-					pstmt2.setString(2, mdpGerant);
+					pstmt2.setString(2, DigestUtils.md5Hex(mdpGerant));
 					rs = pstmt2.executeQuery();
 					if(rs.next()) {
 						gerant = new Gerant();
@@ -384,6 +385,69 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 	}
 	
 	
+	/**********************************************************************************************
+	Service DAO pour Changer Mdp Gerant à la première connexion
+	***********************************************************************************************/
+	public String changeMdpGerant(String idGerant, String newMdp) {
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+		Connection con = null;
+
+		String req1 = "SELECT COUNT(*) FROM gerant WHERE idGerant=?";
+		String req2 = "UPDATE gerant SET mdpGerant=? ,statusCompteGerant=? WHERE idGerant=?";
+		String retour = null;
+		try {
+			con = DBConnexion.getConnection();
+			pstmt1 = con.prepareStatement(req1);
+			pstmt1.setString(1, idGerant);
+			rs = pstmt1.executeQuery();
+			if(rs.next()) {
+				int nbLignes = rs.getInt(1);
+				System.out.print(nbLignes);
+				if(nbLignes > 0) {
+					pstmt2 = con.prepareStatement(req2);
+					pstmt2.setString(1, DigestUtils.md5Hex(newMdp));
+					pstmt2.setInt(2, 1);
+					pstmt2.setString(3, idGerant);
+					pstmt2.executeUpdate();
+					retour = DigestUtils.md5Hex(newMdp); 
+				}
+			}
+			
+		}catch(SQLException sqlex) {
+			sqlex.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt1 != null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+			
+			if(pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+			
+		}
+		
+		return retour;
+	}
 	
 	/**********************************************************************************************
 	CheckStatutEmploye : Service DAO pour obtenir le statut d'un employé
@@ -439,7 +503,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 	  
 	**********************************************************************************************/
 	@Override
-	public boolean validerPaiement(String numeroCode, float montant, String idCommercant)  {
+	public int validerPaiement(String numeroCode, float montant, String idCommercant)  {
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
@@ -454,7 +518,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 		String req3 = "UPDATE employe SET soldeEmploye=? , depensesDuJour=? WHERE idEmploye=?";
 		String req4 = "INSERT INTO achat (montant, dateAchat, idEmploye, idCommerce) VALUES (?,?,?,?)";
 		
-		Boolean check = false;
+		int retour = 5;
 		
 		try {
 			con = DBConnexion.getConnection();
@@ -464,6 +528,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 		
 			sortie : if(rs.next()) {        //Etiquette pour sortir sans rentrer dans tous les if au premier if qui n'est pas validé 
 				String idEmploye = rs.getString(1);
+				System.out.println(idEmploye);
 				pstmt2 = con.prepareStatement(req2);
 				pstmt2.setString(1, idEmploye);
 				rs = pstmt2.executeQuery();
@@ -480,24 +545,28 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 					depensesDuJour = rs.getFloat(2);
 					statutEmploye = rs.getInt(3);
 					
-					if(jour == 6 || jour == 7) {               // vérifie si on est pas en week-end
-						check = false;
+					if(jour == 6 || jour == 7) {               // vérifie si on est pas en week-end [retour = 3]
+						retour = 4;
+						System.out.println("week-end");
 						break sortie;
 					}
 					
-					if(statutEmploye == 2) {                  // vérifie si l'employé a encore un compte actif
-						check = false;
+					if(statutEmploye == 2) {                  // vérifie si l'employé a encore un compte actif [retour = 2]
+						retour = 3;
+						System.out.println("compte désactivé");
 						break sortie;
 					}
 						
-					if(montant > solde) {                      // vérifie si le montant et supérieur au solde
-						check = false;
+					if(montant > solde) {                      // vérifie si le montant et supérieur au solde [retour = 1]
+						retour = 2;
+						System.out.println("solde insuffisant");
 						break sortie;
 					}
 					
 					if(montant <= solde) {                    
 						if((depensesDuJour + montant) > PLAFOND_JOURNALIER) {      // vérifie si le plafond journalier n'a pas été dépassé
-							check = false;
+							retour = 0;
+							System.out.println("solde journalier insuffisant");
 							break sortie;
 						}
 						else {
@@ -523,7 +592,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 							
 							con.commit();
 							
-							check = true;
+							retour = 1;
 						}
 					}	
 				}
@@ -571,7 +640,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 			
 		}
 		
-		return check;
+		return retour;
 	}
 
 	
@@ -675,4 +744,147 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 	}
 
 	
+	/********************************************************************************************
+	Service DAO pour pour obtenir les transactions des 30 derniers jours
+	*********************************************************************************************/
+	public Map<String, Float> getLastMonthAchats(String idCommerce){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		
+		String req = "SELECT dateAchat, montant FROM achat WHERE idEmploye=? AND (dateAchat >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) ORDER BY dateAchat DESC";
+		LinkedHashMap<String,Float> achats = null;
+		try {
+			con = DBConnexion.getConnection();
+			pstmt = con.prepareStatement(req);
+			pstmt.setString(1, idCommerce);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				achats = new LinkedHashMap<String, Float>();
+				do {
+					achats.put(rs.getString(1).substring(0, 19), rs.getFloat(2));
+				}while(rs.next());
+			}
+			
+		}catch(SQLException sqlex) {
+			sqlex.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+		}
+		
+		return achats;
+	}
+	
+	
+	/********************************************************************************************
+	Service DAO pour pour obtenir les commerces à proximité
+	*********************************************************************************************/
+	public Map<String, Float> getCommercesDAO(){
+		/*
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		
+		String req = "SELECT nomCommerce, distance achat WHERE idEmploye=? AND (dateAchat >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) ORDER BY dateAchat DESC";
+		LinkedHashMap<String,Float> achats = null;
+		try {
+			con = DBConnexion.getConnection();
+			pstmt = con.prepareStatement(req);
+			pstmt.setString(1, idCommerce);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				achats = new LinkedHashMap<String, Float>();
+				do {
+					achats.put(rs.getString(1).substring(0, 19), rs.getFloat(2));
+				}while(rs.next());
+			}
+			
+		}catch(SQLException sqlex) {
+			sqlex.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+		}
+		
+		*/
+		return null;
+	}
+	
+	
+	/**********************************************************************************************
+	CheckStatusGerant : Service DAO pour obtenir le statut d'un gérant
+	- statusCompteGerant = 0 (Jamais connecté) ==> Changement mot de passe par défaut
+	- statusCompteGerant = 1 (Déja connecté et compte actif)
+	- statusCompteGerant = 2 (Compte gerant désactivé)
+	**********************************************************************************************/
+	public int checkStatutGerant(String idGerant) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection con = null;
+		
+		String requete = "SELECT statusCompteGerant FROM gerant WHERE idGerant=?";
+		int statut = 2;
+		
+		try {
+			con = DBConnexion.getConnection();
+			pstmt = con.prepareStatement(requete);
+			pstmt.setString(1, idGerant);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				statut = rs.getInt(1);
+			}
+		}catch(SQLException sqlex) {
+			sqlex.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+		}
+		return statut;
+	}
 }

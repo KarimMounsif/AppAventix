@@ -1,7 +1,8 @@
 package com.qrcodeteam.beans;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
+@JsonPropertyOrder({"e", "qr"})
 public class EmployeQrCodeRest {
 	
 	public Employe e;

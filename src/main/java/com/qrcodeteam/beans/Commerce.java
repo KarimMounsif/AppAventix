@@ -2,6 +2,9 @@ package com.qrcodeteam.beans;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.qrcodeteam.utilitaire.DateTimeSerializer;
+
 public class Commerce {
 
 	private String idCommerce;
@@ -19,6 +22,7 @@ public class Commerce {
 	private int statusCompteCommerce;
 	private int capitalSocialCommerce;
 	private int effectifCommerce;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime dateImmatriculationCommerce;
 	
 	

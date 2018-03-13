@@ -2,6 +2,9 @@ package com.qrcodeteam.beans;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.qrcodeteam.utilitaire.DateTimeSerializer;
+
 public class Gerant {
 
 	private String idGerant;
@@ -14,8 +17,11 @@ public class Gerant {
 	private String villeGerant;
 	private String civiliteGerant;
 	private String mdpGerant;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime dateCreationCompteGerant;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime dateDerniereConnexionGerant;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime ddnGerant;
 	private int statusCompteGerant;
 	
@@ -130,16 +136,16 @@ public class Gerant {
 		return dateCreationCompteGerant;
 	}
 
-	public void setDateCreationCompteGerant(DateTime dateCreationCompteGerant) {
-		this.dateCreationCompteGerant = dateCreationCompteGerant;
+	public void setDateCreationCompteGerant(String dateCreationCompteGerant) {
+		this.dateCreationCompteGerant = new DateTime(dateCreationCompteGerant);
 	}
 
 	public DateTime getDateDerniereConnexionGerant() {
 		return dateDerniereConnexionGerant;
 	}
 
-	public void setDateDerniereConnexionGerant(DateTime dateDerniereConnexionGerant) {
-		this.dateDerniereConnexionGerant = dateDerniereConnexionGerant;
+	public void setDateDerniereConnexionGerant(String dateDerniereConnexionGerant) {
+		this.dateDerniereConnexionGerant = new DateTime(dateDerniereConnexionGerant);
 	}
 
 	public int getStatusCompteGerant() {

@@ -2,22 +2,33 @@ package com.qrcodeteam.beans;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.qrcodeteam.utilitaire.DateTimeSerializer;
+
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//@JsonIgnoreProperties({ "ddnEmploye", "dateCreationCompteEmploye" })
 public class Employe {
 
 	private String idEmploye; 
 	private String nomEmploye;
 	private String prenomEmploye;
 	private String civiliteEmploye;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime ddnEmploye;
 	private int typeEmploye; 
 	private String telEmploye;
 	private String mailEmploye;
-	private  float soldeEmploye;
+	private float soldeEmploye;
+	//private float depensesDuJour;                  // 07/03 Karim : Ajout de cet attribut  | Constructeur modifié | ajout get et set | ajout colonne correspondante dans la BD
 	private String mdpEmploye;
 	private int statusCompteEmploye;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime dateCreationCompteEmploye;
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime dateDerniereConnexionEmploye;
 	private String idEntreprise;
+	
 	
 	// Constructeur(s)
 	
@@ -27,7 +38,7 @@ public class Employe {
 	
 	
 	public Employe(String idEmploye, String nomEmploye, String prenomEmploye, String civiliteEmploye,
-			DateTime ddnEmploye, int typeEmploye, String telEmploye, String mailEmploye, float soldeEmploye,
+			DateTime ddnEmploye, int typeEmploye, String telEmploye, String mailEmploye, float soldeEmploye, /*float depensesDuJour,*/
 			 String mdpEmploye, int statusCompteEmploye, DateTime dateCreationCompteEmploye,
 			DateTime dateDerniereConnexionEmploye, String idEntreprise) {
 	
@@ -40,6 +51,7 @@ public class Employe {
 		this.telEmploye = telEmploye;
 		this.mailEmploye = mailEmploye;
 		this.soldeEmploye = soldeEmploye;
+		//this.depensesDuJour = depensesDuJour;
 		this.mdpEmploye = mdpEmploye;
 		this.statusCompteEmploye = statusCompteEmploye;
 		this.dateCreationCompteEmploye = dateCreationCompteEmploye;
@@ -149,16 +161,16 @@ public class Employe {
 		return dateCreationCompteEmploye;
 	}
 
-	public void setDateCreationCompteEmploye(DateTime dateCreationCompteEmploye) {
-		this.dateCreationCompteEmploye = dateCreationCompteEmploye;
+	public void setDateCreationCompteEmploye(String dateCreationCompteEmploye) {      // Karim // Modification du setter 
+		this.dateCreationCompteEmploye = new DateTime(dateCreationCompteEmploye);
 	}
 
 	public DateTime getDateDerniereConnexionEmploye() {
 		return dateDerniereConnexionEmploye;
 	}
 
-	public void setDateDerniereConnexionEmploye(DateTime dateDerniereConnexionEmploye) {
-		this.dateDerniereConnexionEmploye = dateDerniereConnexionEmploye;
+	public void setDateDerniereConnexionEmploye(String dateDerniereConnexionEmploye) {   // Karim // Modification du setter
+		this.dateDerniereConnexionEmploye = new DateTime(dateDerniereConnexionEmploye);
 	}
 
 	public String getIdEntreprise() {
@@ -168,7 +180,17 @@ public class Employe {
 	public void setIdEntreprise(String idEntreprise) {
 		this.idEntreprise = idEntreprise;
 	}
-	
+
+	/*
+	public float getDepensesDuJour() {
+		return depensesDuJour;
+	}
+
+
+	public void setDepensesDuJour(float depensesDuJour) {
+		this.depensesDuJour = depensesDuJour;
+	}
+	*/
 	
 	
 	

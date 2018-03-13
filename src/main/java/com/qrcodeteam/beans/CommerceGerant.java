@@ -1,5 +1,8 @@
 package com.qrcodeteam.beans;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"g", "c"})
 public class CommerceGerant {
 
 	private Commerce c;

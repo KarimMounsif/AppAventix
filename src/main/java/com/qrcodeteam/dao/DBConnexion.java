@@ -2,15 +2,17 @@ package com.qrcodeteam.dao;
 
 import java.sql.*;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 
 public class DBConnexion {
-	private static String url="jdbc:mysql://localhost:8889/ProjetTransversal";
+	private static String url="jdbc:mysql://localhost:3306/projettransversal";
 	private static String username="root";
-	private static String password="root";
+	private static String password="";
+	//private static String password="root";
 	private static Connection con=null;
 	private static final Logger log = LoggerFactory.getLogger(DBConnexion.class);
 	
@@ -58,7 +60,7 @@ public class DBConnexion {
 	
 	
 	public static void main (String []args) {
-		
+		//DBConnexion.getConnection();
 	}
 
 }

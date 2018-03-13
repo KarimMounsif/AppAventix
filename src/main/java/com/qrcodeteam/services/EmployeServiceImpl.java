@@ -3,27 +3,20 @@ package com.qrcodeteam.services;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-//import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.mysql.jdbc.Connection;
-import com.qrcodeteam.beans.CommerceGerant;
-//import com.qrcodeteam.beans.Employe;
 import com.qrcodeteam.beans.EmployeQrCodeRest;
 import com.qrcodeteam.dao.DBConnexion;
 import com.qrcodeteam.dao.ImpServiceDAO;
 import com.qrcodeteam.utilitaire.JsonResponse;
-
 
 
 @Component
@@ -45,7 +38,6 @@ public class EmployeServiceImpl implements IEmployeService{
 		ImpServiceDAO impSDao = new ImpServiceDAO();
 		JsonResponse jrEmploye = new JsonResponse();
 		eqr = impSDao.authentificationEmploye(DBConnexion.getConnection(), mailEmploye, mdpEmploye);   
-		//System.out.println("OK2");
 		sortie1 :if( eqr != null ) {
 				int status = impSDao.checkStatutEmploye(eqr.getE().getIdEmploye());
 				 if( status == 1 ) {
@@ -66,14 +58,14 @@ public class EmployeServiceImpl implements IEmployeService{
 					succesMessage.put("response", "premiere connexion");
 					succesMessage.put("passwordChange", "@ipServer/aventix/rest/employeService/updateMdp?idEmploye=valueOfIdEmploye&newMdp=valueOfnewPasswd");
 					jrEmploye.setSuccessMessages(succesMessage);
-					jrEmploye.setResponseObject(null);
+					jrEmploye.setResponseObject((Object)eqr);
 					break sortie1;
 				}
 				
 				else if ( status == 2 ) {
 					jrEmploye.setValidated(false);
 					HashMap<String, String> errorMessage = new HashMap<String, String>();
-					errorMessage.put("erreur", "utilisateur désactivé");
+					errorMessage.put("erreur", "utilisateur desactive");
 					jrEmploye.setErrorMessages(errorMessage);
 					jrEmploye.setSuccessMessages(null);
 					jrEmploye.setResponseObject(null);
@@ -103,6 +95,7 @@ public class EmployeServiceImpl implements IEmployeService{
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonResponse changeMdpEmploye(@QueryParam("idEmploye") String idEmploye, @QueryParam("newMdp") String newMdp) 
+
 	{
 		ImpServiceDAO impSDao = new ImpServiceDAO();
 		JsonResponse jrUpdate = new JsonResponse();
@@ -126,76 +119,6 @@ public class EmployeServiceImpl implements IEmployeService{
 			jrUpdate.setResponseObject(null);;
 		}
 		return jrUpdate;
-	}
-	
-	
-	/*****************************************************************************************************
-	authentification, Service  pour réaliser l'authentification d'un gérant
-	------------------------------------------------------------------------------------------------------
-	http://localhost:8080/aventix/rest/employeService/authGerant?mailGerant=&mdpGerant=
-	*****************************************************************************************************/
-	@GET
-	@Path("authGerant")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.APPLICATION_JSON)
-	public JsonResponse authentificationGerant(Connection con, @QueryParam("mailGerant") String mailGerant, 
-			@QueryParam("mdpGerant") String mdpGerant) {
-		CommerceGerant comGerant = null;
-		ImpServiceDAO impSDao = new ImpServiceDAO();
-		JsonResponse jrGerant = new JsonResponse();
-		
-		comGerant = impSDao.authentificationGerant(DBConnexion.getConnection(), mailGerant, mdpGerant);
-		/*sortie1 :*/if( comGerant != null ) {
-			/*int status = impSDao.checkStatutEmploye(comGerant.getE().getIdEmploye());
-			 if( status == 1 ) {
-				jrEmploye.setValidated(true);
-				jrEmploye.setErrorMessages(null);
-				
-				HashMap<String, String> succesMessage = new HashMap<String, String>();
-				succesMessage.put("response", "authentication OK");
-				jrEmploye.setSuccessMessages(succesMessage);
-				jrEmploye.setResponseObject((Object)eqr);
-				break sortie1;
-			}
-			
-			else if ( status == 0 ){
-				jrEmploye.setValidated(true);
-				jrEmploye.setErrorMessages(null);
-				HashMap<String, String> succesMessage = new HashMap<String, String>();
-				succesMessage.put("response", "premiere connexion");
-				succesMessage.put("passwordChange", "@ipServer/aventix/rest/employeService/updateMdp?idEmploye=valueOfIdEmploye&newMdp=valueOfnewPasswd");
-				jrEmploye.setSuccessMessages(succesMessage);
-				jrEmploye.setResponseObject(null);
-				break sortie1;
-			}
-			
-			else if ( status == 2 ) {
-				jrEmploye.setValidated(false);
-				HashMap<String, String> errorMessage = new HashMap<String, String>();
-				errorMessage.put("erreur", "utilisateur désactivé");
-				jrEmploye.setErrorMessages(errorMessage);
-				jrEmploye.setSuccessMessages(null);
-				jrEmploye.setResponseObject(null);
-				break sortie1;
-			}
-			*/
-			jrGerant.setValidated(true);
-			HashMap<String, String> successMessage = new HashMap<String, String>();
-			successMessage.put("succès", "authentification Ok");
-			jrGerant.setSuccessMessages(successMessage);
-			jrGerant.setErrorMessages(null);
-			jrGerant.setResponseObject((Object)comGerant);
-	}
-	else {
-		jrGerant.setValidated(false);
-		HashMap<String, String> errorMessage = new HashMap<String, String>();
-		errorMessage.put("erreur", "login ou mdp incorrects");
-		jrGerant.setErrorMessages(errorMessage);
-		jrGerant.setSuccessMessages(null);
-		jrGerant.setResponseObject(null);
-	}
-	
-	return jrGerant;
 	}
 	
 	
@@ -240,44 +163,6 @@ public class EmployeServiceImpl implements IEmployeService{
 
 	
 	/*****************************************************************************************************
-	Service pour pour valider le paiement suite à un achat
-	------------------------------------------------------------------------------------------------------
-	http://localhost:8080/aventix/rest/employeService/Paiement?numeroCode=&montant=&idCommercant=
-	******************************************************************************************************/
-	@GET
-	@Path("Paiement")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.APPLICATION_JSON)
-	public JsonResponse paiement(@QueryParam("numeroCode") String numeroCode, @QueryParam("montant") float montant, 
-			@QueryParam("idCommercant") String idCommercant) {
-		JsonResponse jrPaiement = new JsonResponse();
-		ImpServiceDAO impSDao = new ImpServiceDAO();
-		boolean retourPaiement;
-		retourPaiement = impSDao.validerPaiement(numeroCode, montant, idCommercant);
-		
-		if(!retourPaiement) {
-			jrPaiement.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
-			errorMessage.put("erreur", "Paiement refusé");
-			jrPaiement.setErrorMessages(errorMessage);
-			jrPaiement.setSuccessMessages(null);
-			jrPaiement.setResponseObject(null);
-		}
-		else {
-			jrPaiement.setValidated(true);
-			jrPaiement.setErrorMessages(null);
-			HashMap<String, String> succesMessage = new HashMap<String, String>();
-			succesMessage.put("response", "Paiement effectué");
-			jrPaiement.setSuccessMessages(succesMessage);
-			jrPaiement.setResponseObject(null);
-		}
-		
-		return jrPaiement;
-	
-	}
-	
-	
-	/*****************************************************************************************************
 	Service pour pour obtenir le solde total et journalier 
 	------------------------------------------------------------------------------------------------------
 	http://localhost:8080/aventix/rest/employeService/Solde?idEmploye=
@@ -316,42 +201,78 @@ public class EmployeServiceImpl implements IEmployeService{
 	}
 	
 	
+
 	/*****************************************************************************************************
-	Service pour pour Lister les transactions des 30 derniers jours pour le commerçant
+	Service pour pour Lister les achat des 30 derniers jours pour l'employe
 	------------------------------------------------------------------------------------------------------
-	http://localhost:8080/aventix/rest/employeService/Transactions?idCommerce=
+	http://localhost:8080/aventix/rest/employeService/Achats?idEmploye=
 	*****************************************************************************************************/
 	@GET
-	@Path("Transactions")
+	@Path("Achats")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonResponse getLastMonthTransactions(@QueryParam("idCommerce") String idCommerce) {
-		JsonResponse jrTransactions = new JsonResponse();
+	public JsonResponse getLastMonthAchats(@QueryParam("idEmploye") String idEmploye) {
+		JsonResponse jrAchats = new JsonResponse();
 		ImpServiceDAO impSDao = new ImpServiceDAO();
-		HashMap<String, Float> transactions = null;
-		transactions =  (LinkedHashMap<String, Float>) impSDao.getLastMonthTransactions(idCommerce);
+		HashMap<String, Float> achats = null;
+		achats =  (LinkedHashMap<String, Float>) impSDao.getLastMonthAchats(idEmploye);
 		
-		if(transactions != null) {
-			jrTransactions.setValidated(true);
-			jrTransactions.setErrorMessages(null);
+		if(achats != null) {
+			jrAchats.setValidated(true);
+			jrAchats.setErrorMessages(null);
 			HashMap<String, String> succesMessage = new HashMap<String, String>();
-			succesMessage.put("response", "Transactions last months OK");
-			jrTransactions.setSuccessMessages(succesMessage);
-			jrTransactions.setResponseObject((Object)transactions);
+			succesMessage.put("response", "Achats last months OK");
+			jrAchats.setSuccessMessages(succesMessage);
+			jrAchats.setResponseObject((Object)achats);
 		}
 		else {
-			jrTransactions.setValidated(false);
+			jrAchats.setValidated(false);
 			HashMap<String, String> errorMessage = new HashMap<String, String>();
-			errorMessage.put("erreur", "There is no transactions for the last month");
-			jrTransactions.setErrorMessages(errorMessage);
-			jrTransactions.setSuccessMessages(null);
-			jrTransactions.setResponseObject(null);
+			errorMessage.put("erreur", "There is no achats for the last month");
+			jrAchats.setErrorMessages(errorMessage);
+			jrAchats.setSuccessMessages(null);
+			jrAchats.setResponseObject(null);
 		}
-		return jrTransactions;
 		
+		return jrAchats;
 	}
-
-
+	
+	
+	/*****************************************************************************************************
+	Service pour pour Lister les restaurants/commerces pour l'employe
+	------------------------------------------------------------------------------------------------------
+	http://localhost:8080/aventix/rest/employeService/Commerces
+	****************************************************************************************************/
+	/*@GET
+	@Path("commercesNearby")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public JsonResponse getCommerces() {
+		JsonResponse jrCommerces = new JsonResponse();
+		ImpServiceDAO impSDao = new ImpServiceDAO();
+		HashMap<String, Float> commerces = null;
+		commerces =  (LinkedHashMap<String, Float>) impSDao.getCommercesDAO();
+		
+		if(commerces != null) {
+			jrCommerces.setValidated(true);
+			jrCommerces.setErrorMessages(null);
+			HashMap<String, String> succesMessage = new HashMap<String, String>();
+			succesMessage.put("response", "comemrces nearby");
+			jrCommerces.setSuccessMessages(succesMessage);
+			jrCommerces.setResponseObject((Object)commerces);
+		}
+		else {
+			jrCommerces.setValidated(false);
+			HashMap<String, String> errorMessage = new HashMap<String, String>();
+			errorMessage.put("erreur", "There is no commerces nearby");
+			jrCommerces.setErrorMessages(errorMessage);
+			jrCommerces.setSuccessMessages(null);
+			jrCommerces.setResponseObject(null);
+		}
+		
+		return jrCommerces;
+	}
+	*/
 }
 	
 	

@@ -13,7 +13,11 @@ public interface InterfaceServiceDAO {
 	public Map<String, String> getQrCode(Connection con, String idEmploye);
 	public String changeMdpEmploye(String idEmploye, String newMdp);
 	public int checkStatutEmploye(String idEmploye);
-	public boolean validerPaiement(String numeroCode, float montant, String idCommercant);
+	public int validerPaiement(String numeroCode, float montant, String idCommercant);
 	public Map<String, Float> getSoldeTotalEtJournalier(String idEmploye);
 	public Map<String, Float> getLastMonthTransactions(String idCommerce);
+	public Map<String, Float> getLastMonthAchats(String idCommerce);
+	public Map<String, Float> getCommercesDAO();
+	public int checkStatutGerant(String idGerant);
+	public String changeMdpGerant(String idGerant, String newMdp);
 }

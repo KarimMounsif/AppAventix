@@ -3,17 +3,22 @@ package com.qrcodeteam.utilitaire;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class JsonResponse {
 	
 	   private boolean validated;
 	   private Map<String, String> errorMessages;
 	   private Map<String, String> successMessages;
+	   private Object responseObject;
 	   
 	   
-	public JsonResponse(boolean validated, Map<String, String> errorMessages, Map<String, String> successMessages) {
+	public JsonResponse(boolean validated, Map<String, String> errorMessages, Map<String, String> successMessages, Object responseObject) {
 		this.validated = validated;
 		this.errorMessages = errorMessages;
 		this.successMessages = successMessages;
+		this.responseObject = responseObject;
+		
 	}
 	
 	public JsonResponse() {
@@ -22,6 +27,14 @@ public class JsonResponse {
 		this.successMessages=new HashMap<String,String>();
 	}
 
+	
+	public Object getResponseObject() {
+		return responseObject;
+	}
+
+	public void setResponseObject(Object responseObject) {
+		this.responseObject = responseObject;
+	}
 
 	public boolean isValidated() {
 		return validated;
