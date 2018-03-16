@@ -246,11 +246,6 @@ public class Commerce {
 	public void setDateImmatriculationCommerce(String dateImmatriculationCommerce) {
 		this.dateImmatriculationCommerce = new DateTime(dateImmatriculationCommerce);
 	}
-	
-	
-	
-	
-	
 }
 
 

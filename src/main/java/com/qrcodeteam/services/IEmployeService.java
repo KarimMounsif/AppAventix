@@ -9,5 +9,5 @@ public interface IEmployeService {
 	public JsonResponse changeMdpEmploye(String idEmploye, String newMdp);
 	public JsonResponse getSoldeTotalEtJournalier(String idEmploye);
 	public JsonResponse getLastMonthAchats(String idEmploye);
-	//public JsonResponse getCommerces();
+	public JsonResponse getCommerces();
 }

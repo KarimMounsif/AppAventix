@@ -2,9 +2,11 @@ package com.qrcodeteam.dao;
 
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Map;
 
 import com.qrcodeteam.beans.CommerceGerant;
+import com.qrcodeteam.beans.CommerceSerialized;
 import com.qrcodeteam.beans.EmployeQrCodeRest;
 
 public interface InterfaceServiceDAO {
@@ -17,7 +19,7 @@ public interface InterfaceServiceDAO {
 	public Map<String, Float> getSoldeTotalEtJournalier(String idEmploye);
 	public Map<String, Float> getLastMonthTransactions(String idCommerce);
 	public Map<String, Float> getLastMonthAchats(String idCommerce);
-	public Map<String, Float> getCommercesDAO();
+	public List<CommerceSerialized> getCommercesDAO();
 	public int checkStatutGerant(String idGerant);
 	public String changeMdpGerant(String idGerant, String newMdp);
 }

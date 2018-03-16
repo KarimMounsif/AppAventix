@@ -2,6 +2,7 @@ package com.qrcodeteam.services;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Component;
 
 import com.mysql.jdbc.Connection;
+import com.qrcodeteam.beans.CommerceSerialized;
 import com.qrcodeteam.beans.EmployeQrCodeRest;
 import com.qrcodeteam.dao.DBConnexion;
 import com.qrcodeteam.dao.ImpServiceDAO;
@@ -241,23 +243,23 @@ public class EmployeServiceImpl implements IEmployeService{
 	/*****************************************************************************************************
 	Service pour pour Lister les restaurants/commerces pour l'employe
 	------------------------------------------------------------------------------------------------------
-	http://localhost:8080/aventix/rest/employeService/Commerces
+	http://localhost:8080/aventix/rest/employeService/commercesNearby
 	****************************************************************************************************/
-	/*@GET
+	@GET
 	@Path("commercesNearby")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonResponse getCommerces() {
 		JsonResponse jrCommerces = new JsonResponse();
 		ImpServiceDAO impSDao = new ImpServiceDAO();
-		HashMap<String, Float> commerces = null;
-		commerces =  (LinkedHashMap<String, Float>) impSDao.getCommercesDAO();
+		List<CommerceSerialized> commerces = null;
+		commerces = impSDao.getCommercesDAO();
 		
 		if(commerces != null) {
 			jrCommerces.setValidated(true);
 			jrCommerces.setErrorMessages(null);
 			HashMap<String, String> succesMessage = new HashMap<String, String>();
-			succesMessage.put("response", "comemrces nearby");
+			succesMessage.put("response", "commerces nearby");
 			jrCommerces.setSuccessMessages(succesMessage);
 			jrCommerces.setResponseObject((Object)commerces);
 		}
@@ -272,7 +274,7 @@ public class EmployeServiceImpl implements IEmployeService{
 		
 		return jrCommerces;
 	}
-	*/
+	
 }
 	
 	

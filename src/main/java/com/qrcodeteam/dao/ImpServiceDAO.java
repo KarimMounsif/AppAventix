@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -15,6 +17,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import com.qrcodeteam.beans.Commerce;
 import com.qrcodeteam.beans.CommerceGerant;
+import com.qrcodeteam.beans.CommerceSerialized;
 import com.qrcodeteam.beans.Employe;
 import com.qrcodeteam.beans.EmployeQrCodeRest;
 import com.qrcodeteam.beans.Gerant;
@@ -745,7 +748,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 
 	
 	/********************************************************************************************
-	Service DAO pour pour obtenir les transactions des 30 derniers jours
+	Service DAO pour pour obtenir les achats des 30 derniers jours
 	*********************************************************************************************/
 	public Map<String, Float> getLastMonthAchats(String idCommerce){
 		PreparedStatement pstmt = null;
@@ -795,23 +798,27 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 	/********************************************************************************************
 	Service DAO pour pour obtenir les commerces à proximité
 	*********************************************************************************************/
-	public Map<String, Float> getCommercesDAO(){
-		/*
+	public List<CommerceSerialized> getCommercesDAO(){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection con = null;
+		List<CommerceSerialized> listeDeCommerces = null;
 		
-		String req = "SELECT nomCommerce, distance achat WHERE idEmploye=? AND (dateAchat >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) ORDER BY dateAchat DESC";
-		LinkedHashMap<String,Float> achats = null;
+		String req = "SELECT nomCommerce, adresseCommerce, codePostalCommerce, villeCommerce, telCommerce FROM commerce";
 		try {
 			con = DBConnexion.getConnection();
 			pstmt = con.prepareStatement(req);
-			pstmt.setString(1, idCommerce);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				achats = new LinkedHashMap<String, Float>();
+				listeDeCommerces = new ArrayList<>();
+				CommerceSerialized comSerialized;
 				do {
-					achats.put(rs.getString(1).substring(0, 19), rs.getFloat(2));
+					comSerialized = new CommerceSerialized();
+					comSerialized.setNomCommerce(rs.getString("nomCommerce"));
+					comSerialized.setAdresseCommerce(rs.getString("adresseCommerce")+ " " + rs.getString("codePostalCommerce")
+					+ " " + rs.getString("villeCommerce"));
+					comSerialized.setTelCommerce(rs.getString("telCommerce"));
+					listeDeCommerces.add(comSerialized);
 				}while(rs.next());
 			}
 			
@@ -836,9 +843,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 				}
 			}
 		}
-		
-		*/
-		return null;
+		return listeDeCommerces;
 	}
 	
 	
