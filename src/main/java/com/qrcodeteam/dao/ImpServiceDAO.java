@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.qrcodeteam.beans.Achat;
 import com.qrcodeteam.beans.Commerce;
 import com.qrcodeteam.beans.CommerceGerant;
 import com.qrcodeteam.beans.CommerceSerialized;
@@ -56,6 +57,8 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 			pstmt=con.prepareStatement(req1);
 			pstmt.setString(1, mailEmploye);
 			pstmt.setString(2, DigestUtils.md5Hex(mdpEmploye));
+			System.out.println(mdpEmploye);
+			System.out.println(DigestUtils.md5Hex(mdpEmploye));
 			//System.out.println(DigestUtils.md5Hex(mdpEmploye));
 			rs=pstmt.executeQuery();
 			
@@ -107,6 +110,10 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 							 
 							 //new DateTime (rs.getString("dateCreationQrCode"))
 							 //System.out.println("Initialisation QR fin");
+						}
+						else {
+							qr = new Qrcode();
+							qr.setNumeroCode("Non assigné");
 						}
 						
 						eqr=new EmployeQrCodeRest(e,qr);
@@ -213,6 +220,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 						if(rs.next()) {
 							commerce = new Commerce();
 							commerce.setIdCommerce(rs.getString("idCommerce"));
+							commerce.setNomCommerce(rs.getString("nomCommerce"));
 							commerce.setSiretCommerce(rs.getString("siretCommerce"));
 							commerce.setAdresseCommerce(rs.getString("adresseCommerce"));
 							commerce.setCodePostalCommerce(rs.getString("codePostalCommerce"));
@@ -289,11 +297,10 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 			pstmt=con.prepareStatement(requete);
 			pstmt.setString(1,idEmploye);
 			rs=pstmt.executeQuery();
-			code = new HashMap<String, String>();
 			if(rs.next()) {
-				code.put("QrCode", rs.getString("numeroCode"));
+					code = new HashMap<String, String>();
+					code.put("QrCode", rs.getString("numeroCode"));
 			}
-			
 		}catch(SQLException sqlex) {
 			sqlex.printStackTrace();
 		}catch(Exception e) {
@@ -551,7 +558,7 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 					if(jour == 6 || jour == 7) {               // vérifie si on est pas en week-end [retour = 3]
 						retour = 4;
 						System.out.println("week-end");
-						break sortie;
+						break sortie; 
 					}
 					
 					if(statutEmploye == 2) {                  // vérifie si l'employé a encore un compte actif [retour = 2]
@@ -750,22 +757,26 @@ public class ImpServiceDAO implements InterfaceServiceDAO{
 	/********************************************************************************************
 	Service DAO pour pour obtenir les achats des 30 derniers jours
 	*********************************************************************************************/
-	public Map<String, Float> getLastMonthAchats(String idCommerce){
+	public List<Achat> getLastMonthAchats(String idCommerce){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection con = null;
 		
-		String req = "SELECT dateAchat, montant FROM achat WHERE idEmploye=? AND (dateAchat >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) ORDER BY dateAchat DESC";
-		LinkedHashMap<String,Float> achats = null;
+		String req = "SELECT achat.dateAchat, achat.montant, commerce.nomCommerce FROM achat, commerce WHERE achat.idCommerce=commerce.idCommerce AND achat.idEmploye=? AND (dateAchat >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)) ORDER BY achat.dateAchat DESC";
+		
+		List<Achat> achats = null;
 		try {
 			con = DBConnexion.getConnection();
 			pstmt = con.prepareStatement(req);
 			pstmt.setString(1, idCommerce);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				achats = new LinkedHashMap<String, Float>();
+				achats = new ArrayList<>();
 				do {
-					achats.put(rs.getString(1).substring(0, 19), rs.getFloat(2));
+					System.out.println(rs.getFloat(2));
+					System.out.println(rs.getString(1).substring(0, 19));
+					System.out.println(rs.getString("nomCommerce"));
+					achats.add(new Achat(rs.getFloat(2), rs.getString(1).substring(0, 19),rs.getString("nomCommerce")));
 				}while(rs.next());
 			}
 			

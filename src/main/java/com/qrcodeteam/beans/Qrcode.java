@@ -2,20 +2,24 @@ package com.qrcodeteam.beans;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.qrcodeteam.utilitaire.DateTimeSerializer;
 
 public class Qrcode {
 
-	
+	@JsonIgnore
 	private String idQrcode;
 	private int statusQrCode;
 	private String numeroCode;
+	@JsonIgnore
 	private float prixQrCode;
+	@JsonIgnore
 	private String idEntreprise;
 	private String idEmploye;
+	@JsonIgnore
 	private String idCommande;
-	@JsonSerialize(using = DateTimeSerializer.class)
+	@JsonIgnore
 	private DateTime dateCreationQrCode;
 	
 	// constructeur no init id Employe

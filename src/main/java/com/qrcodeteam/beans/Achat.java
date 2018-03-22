@@ -1,37 +1,16 @@
 package com.qrcodeteam.beans;
 
-import org.joda.time.DateTime;
-
 public class Achat {
-	
-		private int idAchat;
 		private float montantAchat;
-		private DateTime dateAchat;
-		private String idEmploye;
-		private String idCommerce;
+		private String dateAchat;
+		private String nomCommerce;
 		
 		
-
-		public Achat(int idAchat, float montantAchat, DateTime dateAchat, String idEmploye, String idCommerce) {
-			
-			this.idAchat = idAchat;
+		public Achat(float montantAchat, String dateAchat, String nomCommerce) {
+			super();
 			this.montantAchat = montantAchat;
 			this.dateAchat = dateAchat;
-			this.idEmploye = idEmploye;
-			this.idCommerce = idCommerce;
-		}
-		
-		
-		public Achat() {
-	
-		}
-
-
-		public int getIdAchat() {
-			return idAchat;
-		}
-		public void setIdAchat(int idAchat) {
-			this.idAchat = idAchat;
+			this.nomCommerce = nomCommerce;
 		}
 		
 		public float getMontantAchat() {
@@ -40,29 +19,20 @@ public class Achat {
 		public void setMontantAchat(float montantAchat) {
 			this.montantAchat = montantAchat;
 		}
-		
-		public DateTime getDateAchat() {
+		public String getDateAchat() {
 			return dateAchat;
 		}
-		public void setDateAchat(DateTime dateAchat) {
+		public void setDateAchat(String dateAchat) {
 			this.dateAchat = dateAchat;
 		}
-		
-		public String getIdEmploye() {
-			return idEmploye;
+		public String getNomCommerce() {
+			return nomCommerce;
+		}
+		public void setNomCommerce(String nomCommerce) {
+			this.nomCommerce = nomCommerce;
 		}
 		
-		public void setIdEmploye(String idEmploye) {
-			this.idEmploye = idEmploye;
-		}
 		
-		public String getIdCommerce() {
-			return idCommerce;
-		}
-		
-		public void setIdCommerce(String idCommerce) {
-			this.idCommerce = idCommerce;
-		}
-		
+
 		
 }

@@ -1,7 +1,6 @@
 package com.qrcodeteam.services;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Component;
 
 import com.mysql.jdbc.Connection;
+import com.qrcodeteam.beans.Achat;
 import com.qrcodeteam.beans.CommerceSerialized;
 import com.qrcodeteam.beans.EmployeQrCodeRest;
 import com.qrcodeteam.dao.DBConnexion;
@@ -139,7 +139,7 @@ public class EmployeServiceImpl implements IEmployeService{
 		HashMap<String, String> code = new HashMap<String, String>();
 		
 		code = (HashMap<String, String>) impSDao.getQrCode(DBConnexion.getConnection(), idEmploye);
-		
+		System.out.println(code);
 		if (code != null)
 		{
 			jrQrcode.setValidated(true);
@@ -148,17 +148,15 @@ public class EmployeServiceImpl implements IEmployeService{
 			succesMessage.put("response", "QrCode OK");
 			jrQrcode.setSuccessMessages(succesMessage);
 			jrQrcode.setResponseObject((Object)code);
-			
 		}
 		else
 		{
 			jrQrcode.setValidated(false);
 			HashMap<String, String> errorMessage = new HashMap<String, String>();
-			errorMessage.put("erreur", "Could not get Qr Code");
+			errorMessage.put("erreur", "QR code non assigné");
 			jrQrcode.setErrorMessages(errorMessage);
 			jrQrcode.setSuccessMessages(null);
-			jrQrcode.setResponseObject(null);
-			return jrQrcode;
+			jrQrcode.setResponseObject((Object)code);
 		}
 		return jrQrcode;
 	}
@@ -216,8 +214,8 @@ public class EmployeServiceImpl implements IEmployeService{
 	public JsonResponse getLastMonthAchats(@QueryParam("idEmploye") String idEmploye) {
 		JsonResponse jrAchats = new JsonResponse();
 		ImpServiceDAO impSDao = new ImpServiceDAO();
-		HashMap<String, Float> achats = null;
-		achats =  (LinkedHashMap<String, Float>) impSDao.getLastMonthAchats(idEmploye);
+		List<Achat> achats = null;
+		achats = impSDao.getLastMonthAchats(idEmploye);
 		
 		if(achats != null) {
 			jrAchats.setValidated(true);
