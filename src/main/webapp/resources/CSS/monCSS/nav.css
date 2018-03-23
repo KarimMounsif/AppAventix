@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
 html, body {
-  font-family: 'Lato', serif;  
+  
 }
 
 .navbar-default {
   font-size: 1.15em;
   font-weight: 400;
-  background-color: #006b96;
+  background-color: #0277BD;
   padding: 10px;
   border: 0px;
   border-radius: 0px;

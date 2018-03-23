@@ -49,13 +49,10 @@ public class Employe {
 	}
 	
 
-	
-
-
-
 
 	// Setters and Getters
 	
+
 	public String getIdEmploye() {
 		return idEmploye;
 	}

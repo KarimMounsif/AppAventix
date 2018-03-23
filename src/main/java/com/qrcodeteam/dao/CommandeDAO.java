@@ -2,6 +2,7 @@ package com.qrcodeteam.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ListIterator;
@@ -12,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import com.qrcodeteam.beans.Commande;
 import com.qrcodeteam.beans.Entreprise;
+import com.qrcodeteam.beans.Facture;
 import com.qrcodeteam.beans.Qrcode;
 import com.qrcodeteam.utilitaire.CommandeUtils;
 import com.qrcodeteam.utilitaire.JsonResponse;
@@ -122,10 +124,68 @@ public class CommandeDAO {
 
 		}
 		
-		
-		
-		
 		return jsr;
+	}
+	
+	
+	
+	
+	public static Facture genererBeanFacture(Connection con, Commande com, Entreprise ent) {
+		
+		
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
+		
+		
+	String req1="SELECT * FROM entreprise, commande WHERE "
+				+ "commande.idEntreprise=entreprise.idEntreprise and entreprise.idEntreprise=? and commande.idCommande=? and commande.idEntreprise=entreprise.idEntreprise";
+		
+	try {
+		pstmt=con.prepareStatement(req1);
+		pstmt.setString(1, ent.getIdEntreprise());
+		pstmt.setString(2, com.getIdCommande());
+		
+		rs=pstmt.executeQuery();
+		if(rs.next()) {
+		Commande cm= new Commande();
+		cm.setQuantiteCommande(rs.getInt("quantiteCommande"));
+		cm.setIdCommande(rs.getString("idCommande"));	
+		// Conversion date au format ISO 
+		String dtCommande=(String) rs.getString("dateCommande").replace(' ','T');
+		String dtLivraison=(String) rs.getString("dateLivraison").replace(' ','T');
+		cm.setDateCommande(dtCommande);
+		cm.setDateLivraisonCommande(dtLivraison);
+		cm.setPrixCommande(rs.getFloat("prixCommande"));
+		
+		Entreprise et= new Entreprise();
+		et.setNomEntreprise(rs.getString("nomEntreprise"));
+		et.setAdresseEntreprise(rs.getString("adresseEntreprise"));
+		et.setNomService(rs.getString("nomService"));
+		et.setCodePostalEntreprise(rs.getString("codePostalEntreprise"));
+		et.setTelEntreprise(rs.getString("telEntreprise"));
+		et.setMailEntreprise(rs.getString("mailEntreprise"));
+		et.setVilleEntreprise(rs.getString("villeEntreprise"));
+		
+		
+		Facture f= new Facture(et,cm);
+		return f;
+		}
+	}catch(SQLException sqle) {
+		System.out.println(sqle.getMessage());
+	}finally {
+
+		if (pstmt != null) {
+			DBConnexion.closePreparedStatement(pstmt);
+		}
+
+
+		if (con != null) {
+			DBConnexion.closeConnection(con);
+		}
+
+	}
+	return null;
+		
 	}
 	
 	

@@ -96,7 +96,7 @@ color:red;
 					
             <!-- Icon -->
             <div class="fadeIn first">
-              <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+              <img src="resources/Images/img/iconLogin.svg" id="icon" alt="User Icon" />
              
             </div>
 

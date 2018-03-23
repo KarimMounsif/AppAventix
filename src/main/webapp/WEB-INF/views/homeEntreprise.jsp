@@ -6,120 +6,246 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
  <link href="resources/CSS/bootstrap/css_Old/bootstrap.css" rel="stylesheet">
- <link href="resources/CSS/monCSS/nav.css" rel="stylesheet">
  
- <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+
+<!--  Material Dashboard CSS   -->
+<link href="resources/CSS/bootstrapDashboard/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
+
+
+<link href="resources/CSS/monCSS/nav.css" rel="stylesheet">
+
+
+<!--     Fonts and icons    -->
+<link href="resources/Font/fontawesome-all.css" rel="stylesheet">
+
+
+ 
+
 
 <title>home</title>
         <style>
             html, body {
                 height: 100%;
+                font-family: 'Lato', sans-serif;
             }
+            
+            
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .pContainer {
-                text-align: center;
-                
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                padding-top: 300px;
-                margin-bottom: 40px;
-            }
         </style>
+        
+        
 </head>
 <body>
- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Aventix</a>
-    </div>
+<%@include file="navbar.jsp" %>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-         <li><a href="<c:url value="/login"/>"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Dashboard</a></li>
-         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestion du Personnel <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<c:url value="/ajouterEmploye"/>"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp&nbspAjouter Employé</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-console" aria-hidden="true"></span>&nbsp Modifier Employé </a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp Supprimer Employé</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp Lister Employés</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-eur" aria-hidden="true"></span> &nbsp Recharger Employé</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestion des QR codes <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<c:url value="/commandeQrcode"/>"><span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>&nbspCommander QR code</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Assigner QR Code</a></li>
-          </ul>
-        </li>
-      <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Gestion des transactions <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp &nbspLister les transactions</a></li>
-          </ul>
-      </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-      <!-- 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Links<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://www.google.ch" target="_blank">My Webmail</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="http://www.google.ch" target="_blank">Timelogger</a></li>
-            <li><a href="http://www.cubetech.ch" target="_blank">cubetech.ch</a></li>
-         </ul>
-        </li>
-         -->
-         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Casino Villeurbanne<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://www.fgruber.ch/" target="_blank"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Informations Personnelles</a></li>
-            <li><a href="<c:url value="/deconnexion"/>"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Deconnexion</a></li>
-         </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
+<!-- DEBUT -->
+
+
+
+
    
-  </div><!-- /.container-fluid -->
-</nav>
-<div class="pContainer">
- <div class="content">
-            <div class="title">Page en construction ...</div>
- </div>
- </div>
-  
+       
+        
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Crédit QR Code</p>
+                                    <h3 class="title">${nbAvailableQR}/${nbTotalQR}
+                                        <small>Qrc</small>
+                                    </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <a href="<c:url value="/commandeQrcode"/>">Commander Qr Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-4 col-sm-4">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Employe</p>
+                                    <h3 class="title">${nbEmployeNonAssigned}/${totalEmploye}</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="fas fa-user-plus"></i> 
+                                         <a href="<c:url value="/ListerEmploye"/>">Lister Employe</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="red">
+                                    <i class="fas fa-euro-sign"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">En cours</p>
+                                    <h3 class="title">€ ${montantEnCours}</h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="far fa-credit-card"></i> 
+                                        <a href="<c:url value="/ListerTransactions"/>">Transactions</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4"></div>
+                       
+                        <div class="col-md-4">
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+                    <!--  
+            				 <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="orange">
+                                    <div class="ct-chart" id="emailsSubscriptionChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Cumul de Compensation</h4>
+                                    <p class="category">Montant Mensuel au retour de Compensation</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> Mise à jour instantanée
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="blue">
+                                    <h4 class="title">Employés</h4>
+                                    <p class="category">10 derniers Employés ajoutés</p>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                            
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>mail</th>
+                                            <th>téléphone</th>
+                                            <th>date d'ajout </th>
+                                            <th>Status</th>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach var="tenEmploye" items="${listTenEmploye}">
+                                            <tr>
+                                                <td><c:out value="${tenEmploye.nomEmploye}"/></td>
+                                                <td><c:out value="${tenEmploye.prenomEmploye}"/></td>
+                                                <td><c:out value="${tenEmploye.mailEmploye}"/></td>
+                                                <td><c:out value="${tenEmploye.telEmploye}"/></td>
+                                                <td><c:out value="${tenEmploye.dateCreationCompteEmploye}"/></td>
+                                                <c:if test="${tenEmploye.statusCompteEmploye==1}">
+                                                <td><span class="label label-success">Assigné</span></td>
+                                                </c:if>
+                                                 <c:if test="${tenEmploye.statusCompteEmploye==0}">
+                                                <td><span class="label label-danger">Non Assigné</span></td>
+                                                </c:if>
+                                            </tr>
+                                          </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Company
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        
+                    </p>
+                </div>
+            </footer>
+        
+    
+
 <script src="resources/CSS/bootstrap/js_Old/jquery-3.1.1.min.js"></script>
 <script src="resources/CSS/bootstrap/js_Old/bootstrap.min.js"></script>
+
+
+<script src="resources/CSS/bootstrapDashboard/js/material.min.js" type="text/javascript"></script>
+
+<!--  Charts Plugin -->
+<script src="resources/CSS/bootstrapDashboard/js/chartist.min.js"></script>
+
+<!--  Dynamic Elements plugin -->
+<script src="resources/CSS/bootstrapDashboard/js/arrive.min.js"></script>
+
+<!--  PerfectScrollbar Library 
+<script src="resources/CSS/bootstrapDashboard/js/perfect-scrollbar.jquery.min.js"></script>
+-->
+<!-- Material Dashboard javascript methods -->
+<script src="resources/CSS/bootstrapDashboard/js/material-dashboard.js?v=1.2.0"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="resources/CSS/bootstrapDashboard/js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+
+    });
+</script>
+
+
+<!-- FIN -->
+
 
 </body>
 </html>

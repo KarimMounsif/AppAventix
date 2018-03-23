@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.qrcodeteam.beans.Admin;
 import com.qrcodeteam.beans.Employe;
 import com.qrcodeteam.beans.Entreprise;
 import com.qrcodeteam.beans.Gerant;
@@ -75,6 +76,31 @@ public static Entreprise getLoginEntreprise(Connection con, Login x){
 		}
 		
 		return commercant;
+	}
+	
+	
+	public static Admin getLoginAdmin(Connection con, Login x) {
+		Admin admin=null;
+		ResultSet rs=null;
+		String req="Select * FROM AVENTIX WHERE loginAventix=? and mdpAventix=?";
+		try {
+		PreparedStatement pstmt = con.prepareStatement(req);
+		pstmt.setString(1, x.getLogin());
+		pstmt.setString(2,  DigestUtils.md5Hex(x.getMdp()));
+		
+		rs=pstmt.executeQuery();
+		
+		if(rs.next()) {
+			admin=new Admin(rs.getString("loginAventix"),rs.getString("mdpAventix"));
+			System.out.println("User Admin authentifié");
+		}else {
+			System.out.println("User Admin non authentifié");
+		}
+		}catch(Exception ex) {
+			System.out.println("Erreur :"+ex.getMessage());
+		}
+		
+		return admin;
 	}
 	
 }

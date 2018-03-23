@@ -56,16 +56,16 @@ public class Commande {
 		return dateLivraisonCommande;
 	}
 
-	public void setDateLivraisonCommande(DateTime dateLivraisonCommande) {
-		this.dateLivraisonCommande = dateLivraisonCommande;
+	public void setDateLivraisonCommande(String dateLivraisonCommande) {
+		this.dateLivraisonCommande = new DateTime(dateLivraisonCommande);
 	}
 
 	public DateTime getDateCommande() {
 		return dateCommande;
 	}
 
-	public void setDateCommande(DateTime dateCommande) {
-		this.dateCommande = dateCommande;
+	public void setDateCommande(String dateCommande) {
+		this.dateCommande = new DateTime(dateCommande);
 	}
 
 	public int getStatusLivraison() {

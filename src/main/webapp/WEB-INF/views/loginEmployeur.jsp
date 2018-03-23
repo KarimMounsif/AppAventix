@@ -12,7 +12,7 @@
 				<link rel="stylesheet" href="resources/CSS/bootstrap/css/bootstrap-theme.min.css">
 				<link rel="stylesheet" type="text/css" href="resources/CSS/monCSS/login.css">
 				<style>
-    .error {
+.error {
         color: red; font-weight: bold;
     }
 </style>
