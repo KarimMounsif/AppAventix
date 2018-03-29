@@ -17,8 +17,8 @@ import com.qrcodeteam.beans.Transaction;
 public class TransactionsDAO {
 	public static List<Transaction> ListerTransactions(Connection con, String idEntreprise) {
 		List<Transaction> listeTransacs = new ArrayList<Transaction>();
-		//String req = "SELECT commerce_employe.idCommerce, commerce_employe.montantAchat, commerce_employe.dateAchat, commerce_employe.statusCompensation FROM commerce_employe WHERE commerce_employe.idEmploye IN (SELECT idEmploye FROM employe WHERE idEntreprise = ?)";
-		String req2 = "SELECT * FROM commerce_employe, commerce where commerce_employe.idCommerce=commerce.idCommerce and commerce_employe.idEmploye IN (SELECT idEmploye FROM employe WHERE idEntreprise = ?)";
+		//String req = "SELECT achat.idCommerce, achat.montantAchat, achat.dateAchat, achat.statusCompensation FROM achat WHERE achat.idEmploye IN (SELECT idEmploye FROM employe WHERE idEntreprise = ?)";
+		String req2 = "SELECT * FROM achat, commerce where achat.idCommerce=commerce.idCommerce and achat.idEmploye IN (SELECT idEmploye FROM employe WHERE idEntreprise = ?)";
 		PreparedStatement pstmt=null;
 		ResultSet res = null;
 		
@@ -34,7 +34,7 @@ public class TransactionsDAO {
 				Achat a1= new Achat();
 			
 				a1.setDateAchat(new DateTime(res.getDate("DateAchat")));
-				a1.setMontantAchat(res.getFloat("montantAchat"));
+				a1.setMontantAchat(res.getFloat("montant"));
 				a1.setStatusCompensation(res.getInt("statusCompensation"));
 				Transaction t1= new Transaction(c1,e1,a1);
 				
@@ -52,7 +52,7 @@ public class TransactionsDAO {
 	
 	
 	public static float getEncoursMontant(Connection con, String idEntreprise) {
-		String req = "SELECT SUM(montantAchat) FROM commerce_employe, commerce where commerce_employe.idCommerce=commerce.idCommerce and commerce_employe.statusCompensation=0 and commerce_employe.idEmploye IN (SELECT idEmploye FROM employe WHERE idEntreprise = ?)";
+		String req = "SELECT SUM(montantAchat) FROM achat, commerce where achat.idCommerce=commerce.idCommerce and achat.statusCompensation=0 and achat.idEmploye IN (SELECT idEmploye FROM employe WHERE idEntreprise = ?)";
 		PreparedStatement pstmt=null;
 		ResultSet res = null;
 		float montant=(float) 0.0;

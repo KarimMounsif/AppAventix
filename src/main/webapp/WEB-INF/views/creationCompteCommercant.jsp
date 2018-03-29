@@ -370,7 +370,7 @@ input.valid, textarea.valid{
         <!-- Button -->
             <ul class="list-inline pull-right">
                 <button id="activate:step-1" type="button" class="btn btn-primary btn-lg backbstp1">Précédent</button>
-                <button id="activate:step-3" type="button" btn btn-primary btn-lg bstp3" disabled="disabled">Suivant</button>
+                <button id="activate:step-3" type="button" class="btn btn-primary btn-lg bstp3" disabled="disabled">Suivant</button>
             </ul>
         
     </div>

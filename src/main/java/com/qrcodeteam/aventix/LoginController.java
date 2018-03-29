@@ -83,8 +83,8 @@ public class LoginController {
 		// Montant en cours 
 		float montant=TransactionsDAO.getEncoursMontant(DBConnexion.getConnection(), idEntreprise);
 		montant=Numeric.arrondir(montant, 2);
+		model.put("montantEnCours",montant);
 		
-		model.put("montantEncours",montant);
 				// Basculer vers l'accueil de l'employeur ou entreprise;
 				return "homeEntreprise";
 		}else if(session.getAttribute("userGerant")!=null) {
@@ -178,8 +178,7 @@ public class LoginController {
 				
 				// Montant en cours 
 				float montant=TransactionsDAO.getEncoursMontant(DBConnexion.getConnection(), entreprise.getIdEntreprise());
-				montant=Numeric.arrondir(montant, 2);
-				
+				montant=Numeric.arrondir(montant,2);
 				model.put("montantEnCours",montant);
 				
 				resultat="successlogin";

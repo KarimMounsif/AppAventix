@@ -13,9 +13,9 @@
   <link href="resources/Images/img/favicon.png" rel="icon">
   <link href="resources/Images/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
-
+-->
   <!-- Bootstrap CSS File -->
   <link href="resources/CSS/bootstrapOnePage/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

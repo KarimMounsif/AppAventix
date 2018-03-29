@@ -4,9 +4,9 @@
 <script src="resources/CSS/bootstrap/js_Old/jquery-3.1.1.min.js"></script>
 <script src="resources/CSS/bootstrap/js_Old/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <link href="resources/CSS/bootstrap/css_Old/bootstrap.css" rel="stylesheet">
- <link href="resources/CSS/monCSS/nav.css" rel="stylesheet">
- <%@ page session="true" %>
+<link href="resources/CSS/bootstrap/css_Old/bootstrap.css" rel="stylesheet">
+<link href="resources/CSS/monCSS/nav.css" rel="stylesheet">
+<%@ page session="true" %>
  
  
 <style type="text/css">
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav navbar-right">
  
          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Casino Villeurbanne<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <c:out value="${sessionScope.userEntreprise.nomEntreprise}" /><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="http://www.fgruber.ch/" target="_blank"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Informations Personnelles</a></li>
             <li><a href="<c:url value="/deconnexion"/>"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Deconnexion</a></li>

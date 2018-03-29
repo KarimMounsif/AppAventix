@@ -20,7 +20,7 @@ import java.security.SecureRandom;
 public class IdentifiantGenerateur {
 
 	static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	static final String AC = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$&";
+	static final String AC = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#";
 	static SecureRandom rnd = new SecureRandom();
 	static DateTimeFormatter dtfc=DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 

@@ -44,7 +44,7 @@ public class EmployeDAO {
 			
 			while(rs.next()) {
 				Employe e= new Employe();
-				e.setDateCreationCompteEmploye(new DateTime(rs.getString("dateCreationCompteEmploye").replace(" ", "T")));
+				//e.setDateCreationCompteEmploye(new DateTime(rs.getString("dateCreationCompteEmploye").replace(" ", "T")));
 				e.setNomEmploye(rs.getString("nomEmploye"));
 				e.setPrenomEmploye(rs.getString("prenomEmploye"));
 				e.setMailEmploye(rs.getString("mailEmploye"));
@@ -272,7 +272,8 @@ public class EmployeDAO {
 	
 	public static void UpdateEmploye(Connection con, Employe e, String idEntreprise) {
 		PreparedStatement pstmt=null;
-		String req="UPDATE employe SET nomEmploye=?, prenomEmploye=?, civiliteEmploye=?, ddnEmploye=?, telEmploye=? WHERE (idEmploye=? AND idEntreprise = ?)";
+		int i = 0;
+		String req="UPDATE employe SET nomEmploye = ?, prenomEmploye = ?, civiliteEmploye = ?, ddnEmploye = ?, telEmploye = ?, mailEmploye = ? WHERE (idEmploye = ? AND idEntreprise = ?)";
 		try {
 			pstmt=con.prepareStatement(req);
 			pstmt.setString(1, e.getNomEmploye());
@@ -280,19 +281,22 @@ public class EmployeDAO {
 			pstmt.setString(3, e.getCiviliteEmploye());
 			pstmt.setString(4,  new DateTime().toString(dtf));
 			pstmt.setString(5, e.getTelEmploye());
-			pstmt.setString(6, e.getIdEmploye());
-			pstmt.setString(7, idEntreprise);
-			pstmt.executeUpdate();
-			System.out.println("Employ� Modifi� avec les infos suivantes : " + e.getNomEmploye() + " et entreprise = " + idEntreprise + " et idemp = " + e.getIdEmploye());
+			pstmt.setString(6, e.getMailEmploye());
+			pstmt.setString(7, e.getIdEmploye());
+			pstmt.setString(8, idEntreprise);
+			i=pstmt.executeUpdate();
+			System.out.println("Employ� Modifi� avec les infos suivantes : " + e.getNomEmploye() + " et entreprise = " + idEntreprise + " et idemp = " + e.getIdEmploye() + "et mail = " +e.getMailEmploye());
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.out.println(ex.getMessage());
+			System.out.println("Exception catch 1");
 		} finally {
 			try {
 				pstmt.close();
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 				System.out.println(ex.getMessage());
+				System.out.println("Exception catch 2");
 			} finally {
 				DBConnexion.closeConnection(con);
 			}

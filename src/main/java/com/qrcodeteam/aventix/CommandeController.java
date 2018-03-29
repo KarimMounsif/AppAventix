@@ -60,37 +60,37 @@ public class CommandeController {
 		JsonResponse jsr=new JsonResponse(false,null,null);
 		List <Qrcode> listQrCode = null;
 		float prixUnitaireQrCode=(float) 9.99;
-		System.out.println("le nombre de Qr code commandé ==>"+qte);
+		System.out.println("le nombre de Qr code commandé ==> "+qte);
 		
 		// créer commande
 		Commande commande= new Commande();
 		commande.setDateCommande(new DateTime().toString());
 		
-		//commande.setIdEntreprise(((Entreprise)session.getAttribute("userEntreprise")).getIdEntreprise());
-		commande.setIdEntreprise("X39Lf");
+		commande.setIdEntreprise(((Entreprise)session.getAttribute("userEntreprise")).getIdEntreprise());
+		//commande.setIdEntreprise("X39Lf");
 		commande.setIdCommande(IdentifiantGenerateur.generatorIdentifiant(8));
 		commande.setPrixCommande(CommandeUtils.calculPrixCommande((float)9.99, qte));
 		commande.setQuantiteCommande(qte);
 		commande.setStatusLivraison(0);
 		
 		// génération des QRcodes
-		//listQrCode=IdentifiantGenerateur.generatorListQR(qte,(Entreprise)session.getAttribute("userEntreprise"),prixUnitaireQrCode,commande);
+		listQrCode=IdentifiantGenerateur.generatorListQR(qte,(Entreprise)session.getAttribute("userEntreprise"),prixUnitaireQrCode,commande);
 		try {
 			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Entreprise e = new Entreprise();
-		e.setIdEntreprise("X39Lf");
-		listQrCode=IdentifiantGenerateur.generatorListQR(qte,e,prixUnitaireQrCode,commande);
+		//Entreprise e = new Entreprise();
+		//e.setIdEntreprise("X39Lf");
+		//listQrCode=IdentifiantGenerateur.generatorListQR(qte,e,prixUnitaireQrCode,commande);
 		
 		// Persister commande et Qrcode : finaliser commande puis livrer QRcode à Employe.
 		
 		jsr=CommandeDAO.commanderQRcode(DBConnexion.getConnection(), commande, listQrCode);
 		
 		// Facturation
-		Facture f= CommandeDAO.genererBeanFacture(DBConnexion.getConnection(), commande, e);
+		Facture f= CommandeDAO.genererBeanFacture(DBConnexion.getConnection(), commande, (Entreprise)session.getAttribute("userEntreprise"));
 		ParseToXML.parseClassToXml(f);
 		System.out.println(f.toString());
 		return jsr;

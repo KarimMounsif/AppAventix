@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 
 public class DBConnexion {
-	private static String url="jdbc:mysql://localhost:8889/ProjetTransversal";
-	//private static String url="jdbc:mysql://192.168.0.30:3306/ProjetTransversal";
+	//private static String url="jdbc:mysql://localhost:8889/ProjetTransversal";
+	private static String url="jdbc:mysql://192.168.0.30:3306/ProjetTransversal";
 	private static String username="root";
 	private static String password="root";
 	private static Connection con=null;
