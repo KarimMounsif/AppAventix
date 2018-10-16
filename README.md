@@ -4,7 +4,7 @@ The infrastructure was built using a Model-View-Controler architecture :
 - Backend was built in JAVA, under the SPRING framework.
 - Frontend, was written in Javascript, HTML, CSS, with the Boostrap framework.
 - Database is handled using MySQL with the JDBC api
-- The mobile app was developped for Android OS
+- The mobile app was developped for Android OS (see repo : https://github.com/KarimMounsif/AppAventixAndroidApp)
 
 This project was developped by :
 - Karim MOUNSIF : https://www.linkedin.com/in/kmounsif/
