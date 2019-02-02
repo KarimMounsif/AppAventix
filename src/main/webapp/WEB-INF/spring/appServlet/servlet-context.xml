@@ -28,8 +28,8 @@
 		<beans:property name="maxUploadSize" value="100000000" />
 
 	</beans:bean>
-	
-	<context:component-scan base-package="com.qrcodeteam.aventix" />
+
+    <context:component-scan base-package="com.qrcodeteam.controller"/>
 	
 	
 	

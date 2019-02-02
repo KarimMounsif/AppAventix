@@ -1,9 +1,8 @@
 package com.qrcodeteam.validator;
 
+import com.qrcodeteam.bom.EntrepriseEmploye;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import com.qrcodeteam.beans.EntrepriseEmploye;
 
 
 public class EntrepriseEmployeValidator implements Validator{

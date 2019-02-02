@@ -1,32 +1,26 @@
 package com.qrcodeteam.services;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
+import com.mysql.jdbc.Connection;
+import com.qrcodeteam.bom.Achat;
+import com.qrcodeteam.bom.Commerce;
+import com.qrcodeteam.bom.EmployeQrCodeRest;
+import com.qrcodeteam.dao.DBConnexion;
+import com.qrcodeteam.dao.mobile_app.employe.ImplemEmployeDAO;
+import com.qrcodeteam.utils.JsonResponse;
 import org.springframework.stereotype.Component;
 
-import com.mysql.jdbc.Connection;
-import com.qrcodeteam.beans.Achat;
-import com.qrcodeteam.beans.CommerceSerialized;
-import com.qrcodeteam.beans.EmployeQrCodeRest;
-import com.qrcodeteam.dao.DBConnexion;
-import com.qrcodeteam.dao.ImpServiceDAO;
-import com.qrcodeteam.utilitaire.JsonResponse;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.List;
 
 
 @Component
 @Path("/employeService")
-public class EmployeServiceImpl implements IEmployeService{
+public class EmployeServiceImpl {
 
 	/******************************************************************************************************
-	authentification, Service  pour réaliser l'authentification d'un employé
+	authentification, Service  pour rï¿½aliser l'authentification d'un employï¿½
 	------------------------------------------------------------------------------------------------------
 	http://localhost:8080/aventix/rest/employeService/authEmploye?mailEmploye=&mdpEmploye=
 	******************************************************************************************************/
@@ -36,47 +30,46 @@ public class EmployeServiceImpl implements IEmployeService{
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonResponse authentificationEmploye(Connection con, @QueryParam("mailEmploye") String mailEmploye, 
 			@QueryParam("mdpEmploye") String mdpEmploye) {
+
 		EmployeQrCodeRest eqr;
-		ImpServiceDAO impSDao = new ImpServiceDAO();
+        ImplemEmployeDAO implemEmployeDAO = new ImplemEmployeDAO();
 		JsonResponse jrEmploye = new JsonResponse();
-		eqr = impSDao.authentificationEmploye(DBConnexion.getConnection(), mailEmploye, mdpEmploye);   
-		sortie1 :if( eqr != null ) {
-				int status = impSDao.checkStatutEmploye(eqr.getE().getIdEmploye());
+        eqr = implemEmployeDAO.authentificationEmploye(DBConnexion.getConnection(), mailEmploye, mdpEmploye);
+
+        if (eqr != null) {
+            int status = implemEmployeDAO.checkStatutEmploye(eqr.getE().getIdEmploye());
 				 if( status == 1 ) {
 					jrEmploye.setValidated(true);
 					jrEmploye.setErrorMessages(null);
-					
-					HashMap<String, String> succesMessage = new HashMap<String, String>();
+
+                     HashMap<String, String> succesMessage = new HashMap<>();
 					succesMessage.put("response", "authentication OK");
 					jrEmploye.setSuccessMessages(succesMessage);
-					jrEmploye.setResponseObject((Object)eqr);
-					break sortie1;
+                     jrEmploye.setResponseObject(eqr);
 				}
 				
 				else if ( status == 0 ){
 					jrEmploye.setValidated(true);
 					jrEmploye.setErrorMessages(null);
-					HashMap<String, String> succesMessage = new HashMap<String, String>();
+                     HashMap<String, String> succesMessage = new HashMap<>();
 					succesMessage.put("response", "premiere connexion");
-					succesMessage.put("passwordChange", "@ipServer/aventix/rest/employeService/updateMdp?idEmploye=valueOfIdEmploye&newMdp=valueOfnewPasswd");
+                     succesMessage.put("passwordChange", "@ipServer/controller/rest/employeService/updateMdp?idEmploye=valueOfIdEmploye&newMdp=valueOfnewPasswd");
 					jrEmploye.setSuccessMessages(succesMessage);
-					jrEmploye.setResponseObject((Object)eqr);
-					break sortie1;
+                     jrEmploye.setResponseObject(eqr);
 				}
 				
 				else if ( status == 2 ) {
 					jrEmploye.setValidated(false);
-					HashMap<String, String> errorMessage = new HashMap<String, String>();
+                     HashMap<String, String> errorMessage = new HashMap<>();
 					errorMessage.put("erreur", "utilisateur desactive");
 					jrEmploye.setErrorMessages(errorMessage);
 					jrEmploye.setSuccessMessages(null);
 					jrEmploye.setResponseObject(null);
-					break sortie1;
 				}
 		}
 		else {
 			jrEmploye.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
+            HashMap<String, String> errorMessage = new HashMap<>();
 			errorMessage.put("erreur", "login ou mdp incorrects");
 			jrEmploye.setErrorMessages(errorMessage);
 			jrEmploye.setSuccessMessages(null);
@@ -88,7 +81,7 @@ public class EmployeServiceImpl implements IEmployeService{
 
 	
 	/*****************************************************************************************************
-	Service pour Changer Mdp Employe à la première connexion
+	Service pour Changer Mdp Employe ï¿½ la premiï¿½re connexion
 	------------------------------------------------------------------------------------------------------
 	http://localhost:8080/aventix/rest/employeService/updateMdp?idEmploye=&newMdp=
 	******************************************************************************************************/
@@ -99,33 +92,32 @@ public class EmployeServiceImpl implements IEmployeService{
 	public JsonResponse changeMdpEmploye(@QueryParam("idEmploye") String idEmploye, @QueryParam("newMdp") String newMdp) 
 
 	{
-		ImpServiceDAO impSDao = new ImpServiceDAO();
+        ImplemEmployeDAO implemEmployeDAO = new ImplemEmployeDAO();
 		JsonResponse jrUpdate = new JsonResponse();
-		String retour = null;
-		retour = impSDao.changeMdpEmploye(idEmploye, newMdp); 
+        String retour;
+        retour = implemEmployeDAO.changeMdpEmploye(idEmploye, newMdp);
 		if(retour != null) {
-			//System.out.println("retour OK");
 			jrUpdate.setValidated(true);
 			jrUpdate.setErrorMessages(null);
-			HashMap<String, String> succesMessage = new HashMap<String, String>();
+            HashMap<String, String> succesMessage = new HashMap<>();
 			succesMessage.put("response", "PasswdChangeSUCCESS ");
 			jrUpdate.setSuccessMessages(succesMessage);
 			jrUpdate.setResponseObject(null);
 		}
 		else {
 			jrUpdate.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
+            HashMap<String, String> errorMessage = new HashMap<>();
 			errorMessage.put("erreur", "PasswdChangeFAIL");
 			jrUpdate.setErrorMessages(errorMessage);
 			jrUpdate.setSuccessMessages(null);
-			jrUpdate.setResponseObject(null);;
+            jrUpdate.setResponseObject(null);
 		}
 		return jrUpdate;
 	}
 	
 	
 	/*****************************************************************************************************
-	getQrCode, Service pour obtenir le QR code à la demande
+	getQrCode, Service pour obtenir le QR code ï¿½ la demande
 	------------------------------------------------------------------------------------------------------
 	http://localhost:8080/aventix/rest/employeService/getQrCode?idEmploye=
 	******************************************************************************************************/
@@ -134,9 +126,10 @@ public class EmployeServiceImpl implements IEmployeService{
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonResponse getQrCode(@QueryParam("idEmploye") String idEmploye) {
+
 		JsonResponse jrQrcode = new JsonResponse();
-		ImpServiceDAO impSDao = new ImpServiceDAO();
-		HashMap<String, String> code = new HashMap<String, String>();
+        ImplemEmployeDAO impSDao = new ImplemEmployeDAO();
+        HashMap<String, String> code;
 		
 		code = (HashMap<String, String>) impSDao.getQrCode(DBConnexion.getConnection(), idEmploye);
 		System.out.println(code);
@@ -144,19 +137,19 @@ public class EmployeServiceImpl implements IEmployeService{
 		{
 			jrQrcode.setValidated(true);
 			jrQrcode.setErrorMessages(null);
-			HashMap<String, String> succesMessage = new HashMap<String, String>();
+            HashMap<String, String> succesMessage = new HashMap<>();
 			succesMessage.put("response", "QrCode OK");
 			jrQrcode.setSuccessMessages(succesMessage);
-			jrQrcode.setResponseObject((Object)code);
+            jrQrcode.setResponseObject(code);
 		}
 		else
 		{
 			jrQrcode.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
-			errorMessage.put("erreur", "QR code non assigné");
+            HashMap<String, String> errorMessage = new HashMap<>();
+            errorMessage.put("erreur", "QR code non assigne");
 			jrQrcode.setErrorMessages(errorMessage);
 			jrQrcode.setSuccessMessages(null);
-			jrQrcode.setResponseObject((Object)code);
+            jrQrcode.setResponseObject(null);
 		}
 		return jrQrcode;
 	}
@@ -174,22 +167,22 @@ public class EmployeServiceImpl implements IEmployeService{
 	public JsonResponse getSoldeTotalEtJournalier(@QueryParam("idEmploye") String idEmploye) {
 		
 		JsonResponse jrSolde = new JsonResponse();
-		ImpServiceDAO impSDao = new ImpServiceDAO();
-		HashMap<String, Float> soldesTotalEtJournalier = null;
+        ImplemEmployeDAO impSDao = new ImplemEmployeDAO();
+        HashMap<String, Float> soldesTotalEtJournalier;
 		
 		soldesTotalEtJournalier = (HashMap<String, Float>) impSDao.getSoldeTotalEtJournalier(idEmploye);
 		
 		if(soldesTotalEtJournalier != null) {
 			jrSolde.setValidated(true);
 			jrSolde.setErrorMessages(null);
-			HashMap<String, String> succesMessage = new HashMap<String, String>();
+            HashMap<String, String> succesMessage = new HashMap<>();
 			succesMessage.put("response", "Solde Journalier et Total OK");
 			jrSolde.setSuccessMessages(succesMessage);
-			jrSolde.setResponseObject((Object)soldesTotalEtJournalier);
+            jrSolde.setResponseObject(soldesTotalEtJournalier);
 		}
 		else {
 			jrSolde.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
+            HashMap<String, String> errorMessage = new HashMap<>();
 			errorMessage.put("erreur", "Could not get Solde Journalier et Total");
 			jrSolde.setErrorMessages(errorMessage);
 			jrSolde.setSuccessMessages(null);
@@ -212,22 +205,23 @@ public class EmployeServiceImpl implements IEmployeService{
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonResponse getLastMonthAchats(@QueryParam("idEmploye") String idEmploye) {
+
 		JsonResponse jrAchats = new JsonResponse();
-		ImpServiceDAO impSDao = new ImpServiceDAO();
-		List<Achat> achats = null;
+        ImplemEmployeDAO impSDao = new ImplemEmployeDAO();
+        List<Achat> achats;
 		achats = impSDao.getLastMonthAchats(idEmploye);
 		
 		if(achats != null) {
 			jrAchats.setValidated(true);
 			jrAchats.setErrorMessages(null);
-			HashMap<String, String> succesMessage = new HashMap<String, String>();
+            HashMap<String, String> succesMessage = new HashMap<>();
 			succesMessage.put("response", "Achats last months OK");
 			jrAchats.setSuccessMessages(succesMessage);
-			jrAchats.setResponseObject((Object)achats);
+            jrAchats.setResponseObject(achats);
 		}
 		else {
 			jrAchats.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
+            HashMap<String, String> errorMessage = new HashMap<>();
 			errorMessage.put("erreur", "There is no achats for the last month");
 			jrAchats.setErrorMessages(errorMessage);
 			jrAchats.setSuccessMessages(null);
@@ -248,22 +242,23 @@ public class EmployeServiceImpl implements IEmployeService{
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonResponse getCommerces() {
+
 		JsonResponse jrCommerces = new JsonResponse();
-		ImpServiceDAO impSDao = new ImpServiceDAO();
-		List<CommerceSerialized> commerces = null;
+        ImplemEmployeDAO impSDao = new ImplemEmployeDAO();
+        List<Commerce> commerces;
 		commerces = impSDao.getCommercesDAO();
 		
 		if(commerces != null) {
 			jrCommerces.setValidated(true);
 			jrCommerces.setErrorMessages(null);
-			HashMap<String, String> succesMessage = new HashMap<String, String>();
+            HashMap<String, String> succesMessage = new HashMap<>();
 			succesMessage.put("response", "commerces nearby");
 			jrCommerces.setSuccessMessages(succesMessage);
-			jrCommerces.setResponseObject((Object)commerces);
+            jrCommerces.setResponseObject(commerces);
 		}
 		else {
 			jrCommerces.setValidated(false);
-			HashMap<String, String> errorMessage = new HashMap<String, String>();
+            HashMap<String, String> errorMessage = new HashMap<>();
 			errorMessage.put("erreur", "There is no commerces nearby");
 			jrCommerces.setErrorMessages(errorMessage);
 			jrCommerces.setSuccessMessages(null);

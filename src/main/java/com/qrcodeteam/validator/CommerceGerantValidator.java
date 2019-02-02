@@ -1,8 +1,8 @@
 package com.qrcodeteam.validator;
 
+import com.qrcodeteam.bom.CommerceGerant;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import com.qrcodeteam.beans.CommerceGerant;
 
 
 public class CommerceGerantValidator implements Validator {

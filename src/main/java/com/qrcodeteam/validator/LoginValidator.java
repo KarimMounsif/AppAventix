@@ -1,13 +1,11 @@
 package com.qrcodeteam.validator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.qrcodeteam.bom.Login;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.qrcodeteam.beans.Login;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginValidator implements Validator {
 
@@ -23,7 +21,7 @@ public class LoginValidator implements Validator {
 		
 		Login login = (Login) target;
 		Pattern pattern;
-		Matcher matcher = null;
+		Matcher matcher;
 	    final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		
 		if(login.getLogin().equals("")) {
